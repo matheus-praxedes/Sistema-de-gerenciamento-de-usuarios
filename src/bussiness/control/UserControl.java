@@ -1,17 +1,34 @@
 package bussiness.control;
 
 import bussiness.model.User;
+import infra.UserPersistence;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.ControlException;
+import util.InfraException;
 import util.LoginException;
 import util.PasswordException;
 import util.UserException;
 
 public class UserControl {
     
-    private Map<String,User> users = new HashMap<String,User>();
+    private Map<String,User> users;
+    private UserPersistence persistence;
     
+    public UserControl() throws ControlException{
+ 
+        persistence = new UserPersistence();
+        try {
+            users = persistence.loadUsers();
+        } catch (InfraException ex) {
+            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ControlException("Can not access user data");
+        }
+    
+    }
     public void addUser(String login, String password) throws LoginException,
     PasswordException{
         
@@ -38,13 +55,14 @@ public class UserControl {
        
     }
     public void listAll() throws UserException{
-        System.out.println("entrei222");
+        
+        
+        if(users.isEmpty()){
+            
+            throw new UserException("There are no registered users");
+        }
         for(String s: users.keySet()){
-            System.out.println("entrei");
-            if(users.isEmpty()){
-                System.out.println("entrei2");
-                throw new UserException("There are no registered users");
-            }
+           
             System.out.println(users.get(s));
         }
     }
@@ -75,8 +93,14 @@ public class UserControl {
         }
         return count;
     }
-
-    public void addUser(Scanner login, Scanner password) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void endOperation() throws ControlException{
+    
+        try {
+            persistence.saveUsers(users);
+        } catch (InfraException ex) {
+            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ControlException("Can not save user data");
+        }
+    
     }
 }

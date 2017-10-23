@@ -2,6 +2,9 @@ package view;
 
 import bussiness.control.UserControl;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.ControlException;
 import util.LoginException;
 import util.PasswordException;
 import util.UserException;
@@ -14,7 +17,13 @@ public class UserForm {
     public UserForm(){
     
         input = new Scanner(System.in);
-        control = new UserControl();
+        try {
+            control = new UserControl();
+        } catch (ControlException ex) {
+            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Internal error. Unable to load user data into the system. Search for an administrator for support");
+            System.exit(0);
+        }
     }
     public void mainMenu(){
         
@@ -33,6 +42,7 @@ public class UserForm {
             int choice = input.nextInt();
             
             if(choice == 0){
+                exitSystem();
                 break;
             }
             
@@ -54,7 +64,7 @@ public class UserForm {
         System.out.println("Thank you for using the system");
     }
     private void addUserMenu(){
-     
+        
         while(true){
             
             System.out.print("Enter your login:");
@@ -107,6 +117,15 @@ public class UserForm {
         }
         catch(UserException e){
             System.out.println( e.getMessage());
+        }
+    }
+    private void exitSystem(){
+    
+        try {
+            control.endOperation();
+        } catch (ControlException ex) {
+            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
         }
     }
 }
