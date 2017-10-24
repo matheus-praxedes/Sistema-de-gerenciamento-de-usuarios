@@ -1,7 +1,7 @@
 package util;
 
 public class InfraException extends Exception{
-    
+ 
     public InfraException(){
        super();
     } 
@@ -9,3 +9,4 @@ public class InfraException extends Exception{
        super(message);
     } 
 }
+

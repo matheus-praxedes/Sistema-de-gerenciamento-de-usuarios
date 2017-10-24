@@ -42,7 +42,6 @@ public class UserForm {
             int choice = input.nextInt();
             
             if(choice == 0){
-                exitSystem();
                 break;
             }
             
@@ -82,6 +81,9 @@ public class UserForm {
                 System.out.println( e.getMessage());
                 System.out.println("Try again");
                 
+            } catch (ControlException ex) {
+                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
             }
         }
     }
@@ -96,6 +98,9 @@ public class UserForm {
         }
         catch(UserException e){
             System.out.println( e.getMessage());
+        } catch (ControlException ex) {
+            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
         }
     }
     private void listUserMenu(){
@@ -104,7 +109,7 @@ public class UserForm {
         String login = input.next();
 
         try{
-            control.list(login);
+            System.out.println(control.list(login));
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -113,19 +118,11 @@ public class UserForm {
     private void listAllUserMenu(){
     
         try{
-            control.listAll();
+            System.out.println(control.listAll());
         }
         catch(UserException e){
             System.out.println( e.getMessage());
         }
     }
-    private void exitSystem(){
     
-        try {
-            control.endOperation();
-        } catch (ControlException ex) {
-            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
-        }
-    }
 }

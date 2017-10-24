@@ -30,7 +30,7 @@ public class UserControl {
     
     }
     public void addUser(String login, String password) throws LoginException,
-    PasswordException{
+    PasswordException,ControlException{
         
         if(login.length() > 12){
             throw new LoginException("Login exceeds maximum length");
@@ -52,10 +52,18 @@ public class UserControl {
        }
        
         users.put(login, new User(login,password));
+        
+        try {
+            persistence.saveUsers(users);
+        } catch (InfraException ex) {
+            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ControlException("Can not save user data");
+        }
        
     }
-    public void listAll() throws UserException{
+    public String listAll() throws UserException{
         
+        String output = "";
         
         if(users.isEmpty()){
             
@@ -63,24 +71,32 @@ public class UserControl {
         }
         for(String s: users.keySet()){
            
-            System.out.println(users.get(s));
+            //System.out.println(users.get(s));
+            output = output + users.get(s) + "\n";
         }
+        return output;
     }
-    public void list(String login) throws UserException{
+    public String list(String login) throws UserException{
         
         if(users.get(login) != null){
-            System.out.println(users.get(login));
+            return users.get(login)+"\n";
         }else{
             throw new UserException("User not registered");
         }
     }
-    public void delete(String login) throws UserException{
+    public void delete(String login) throws UserException, ControlException{
     
         if(users.get(login) != null){
             users.remove(login);
         }else{
             throw new UserException("User not registered");
         }
+        try {
+            persistence.saveUsers(users);
+        } catch (InfraException ex) {
+            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ControlException("Can not save user data");
+        }        
     }
     private static int counterNumber(String s){
         
@@ -93,14 +109,18 @@ public class UserControl {
         }
         return count;
     }
-    public void endOperation() throws ControlException{
+    public int countUsers(){
+  
+        return users.size(); 
+    }
+    public void clear() throws ControlException{
     
-        try {
+        users.clear();
+          try {
             persistence.saveUsers(users);
         } catch (InfraException ex) {
             Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new ControlException("Can not save user data");
         }
-    
     }
 }
