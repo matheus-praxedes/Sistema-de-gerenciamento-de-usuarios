@@ -11,8 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.InfraException;
 
 public class UserPersistence{
@@ -27,10 +25,8 @@ public class UserPersistence{
             out.close();
         
         }catch(FileNotFoundException e){
-            e.printStackTrace();
             throw new InfraException("File not found");
         }catch(IOException e){
-            e.printStackTrace();
             throw new InfraException("IO problem");
         } 
     }
@@ -50,13 +46,10 @@ public class UserPersistence{
             users = (Map<String,User>) input.readObject();
             in.close();
         }catch(FileNotFoundException e){
-            e.printStackTrace();
             throw new InfraException("File not found");
         }catch(IOException e){
-            e.printStackTrace();
             throw new InfraException("IO problem");
-        } catch (ClassNotFoundException e) {
-             e.printStackTrace();
+        }catch (ClassNotFoundException e){
             throw new InfraException("Class not found");
         }
         return users;

@@ -1,10 +1,5 @@
 package bussiness.control;
 
-import bussiness.model.User;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.security.auth.login.LoginException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,24 +7,27 @@ import static org.junit.Assert.*;
 import util.ControlException;
 import util.PasswordException;
 import util.UserException;
-//import util.LoginException;
 
 public class UserControlTest {
-    
    
+    UserControl instance;
+    
+    void init() throws ControlException{     
+        instance.clear();
+    }
     @Before
-    public void setUp() {
+    public void setUp() throws ControlException {
 
+       instance = new UserControl();
     }
     @After
-    public void tearDown() {
+    public void tearDown() throws ControlException {
     
+        instance.clear();
     }
 
     @Test
     public void testAddUser() throws ControlException{
-        
-        UserControl instance = new UserControl();
         
         String login;
         String password;
@@ -99,56 +97,80 @@ public class UserControlTest {
             fail("Test fail.Should not throws login exception");
         }
        
-        /*login = "francisco";
+        login = "francisco";
         password = "12345678";
         try {
             instance.addUser(login, password);
-            assertEquals(instance.countUsers(),1);
+            assertEquals(1,instance.countUsers());
         } catch (util.LoginException ex) {
             fail("Test fail.Should throws login exception");
         } catch (PasswordException ex) {
             fail("Test fail. Should not throws password exception");
-        }*/
-    
-        instance.clear();
+        }
     }
    
     @Test
     public void testListAll() throws ControlException, PasswordException, util.LoginException{
         
-        UserControl instance = new UserControl();
+        try {
+            instance.delete("andre");
+            fail("List is empty");
+        } catch (UserException ex) {
+            assertTrue(true);
+        }
+        
         instance.addUser("andre", "12345678");
         instance.addUser("karla", "123456789");
+        String result = "andre\t12345678\nkarla\t123456789\n";
         
-        String result = "andre\t12345678\nkarla\t123456789";
         try {
-            assertEquals( instance.listAll(),result);
+            assertEquals( result,instance.listAll());
         } catch (UserException ex) {
-            Logger.getLogger(UserControlTest.class.getName()).log(Level.SEVERE, null, ex);
             fail("List should not be empty");
         }
-        instance.clear();
-    }
-
-   /*
-    @Test
-    public void testList() throws Exception {
-        System.out.println("list");
-        String login = "";
-        UserControl instance = new UserControl();
-        instance.list(login);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     @Test
-    public void testDelete() throws Exception {
-        System.out.println("delete");
-        String login = "";
-        UserControl instance = new UserControl();
-        instance.delete(login);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testList() throws ControlException, util.LoginException, PasswordException {
+           
+        try {
+            instance.delete("cebolinha");
+            fail("List is empty");
+        } catch (UserException ex) {
+            assertTrue(true);
+        }
+        
+        instance.addUser("cebolinha", "monica123");
+        String result = "cebolinha\tmonica123\n";
+        
+        try {
+            assertEquals(result, instance.list("cebolinha"));
+        } catch (UserException ex) {
+            fail("List should not be empty");
+        }
+                
+    
     }
-    */
+    
+    @Test
+    public void testDelete() throws ControlException, util.LoginException, PasswordException{
+       
+        try {
+            instance.delete("cascao");
+            fail("List is empty");
+        } catch (UserException ex) {
+            assertTrue(true);
+        }
+        
+        instance.addUser("cascao", "celular123");
+        
+        try {
+            instance.delete("cascao");
+            assertEquals(0,instance.countUsers());
+        } catch (UserException ex) {
+            fail("List is not empty");
+        }
+        
+    }
 }

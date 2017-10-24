@@ -2,11 +2,7 @@ package bussiness.control;
 
 import bussiness.model.User;
 import infra.UserPersistence;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.ControlException;
 import util.InfraException;
 import util.LoginException;
@@ -24,7 +20,6 @@ public class UserControl {
         try {
             users = persistence.loadUsers();
         } catch (InfraException ex) {
-            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new ControlException("Can not access user data");
         }
     
@@ -49,14 +44,13 @@ public class UserControl {
         }
         else if(counterNumber(password) < 2){
             throw new PasswordException("Password must contain at least 2 numbers");
-       }
+        }
        
         users.put(login, new User(login,password));
         
         try {
             persistence.saveUsers(users);
         } catch (InfraException ex) {
-            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new ControlException("Can not save user data");
         }
        
@@ -70,8 +64,7 @@ public class UserControl {
             throw new UserException("There are no registered users");
         }
         for(String s: users.keySet()){
-           
-            //System.out.println(users.get(s));
+          
             output = output + users.get(s) + "\n";
         }
         return output;
@@ -79,7 +72,7 @@ public class UserControl {
     public String list(String login) throws UserException{
         
         if(users.get(login) != null){
-            return users.get(login)+"\n";
+            return users.get(login) + "\n";
         }else{
             throw new UserException("User not registered");
         }
@@ -94,7 +87,6 @@ public class UserControl {
         try {
             persistence.saveUsers(users);
         } catch (InfraException ex) {
-            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new ControlException("Can not save user data");
         }        
     }
@@ -116,10 +108,9 @@ public class UserControl {
     public void clear() throws ControlException{
     
         users.clear();
-          try {
+        try {
             persistence.saveUsers(users);
         } catch (InfraException ex) {
-            Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new ControlException("Can not save user data");
         }
     }

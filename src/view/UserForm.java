@@ -20,7 +20,6 @@ public class UserForm {
         try {
             control = new UserControl();
         } catch (ControlException ex) {
-            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Internal error. Unable to load user data into the system. Search for an administrator for support");
             System.exit(0);
         }
@@ -82,7 +81,6 @@ public class UserForm {
                 System.out.println("Try again");
                 
             } catch (ControlException ex) {
-                Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
             }
         }
@@ -99,7 +97,6 @@ public class UserForm {
         catch(UserException e){
             System.out.println( e.getMessage());
         } catch (ControlException ex) {
-            Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
         }
     }

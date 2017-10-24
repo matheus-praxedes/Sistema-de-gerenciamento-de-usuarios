@@ -1,7 +1,5 @@
 package bussiness.model;
 
-import java.io.IOException;
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 
 public class User implements Serializable{
