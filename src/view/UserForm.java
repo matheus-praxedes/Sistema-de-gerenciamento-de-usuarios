@@ -1,5 +1,6 @@
 package view;
 
+import business.control.AccessControl;
 import business.control.UserControl;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -11,18 +12,22 @@ import util.UserException;
 
 public class UserForm {
     
-    private UserControl control;
-    private Scanner     input;
- 
-    public UserForm(){
+    private UserControl   control;
+    private Scanner       input;
+    private AccessControl access;  
     
+    public UserForm(){
+        
         input = new Scanner(System.in);
+        
         try {
             control = new UserControl();
         } catch (ControlException ex) {
             System.out.println("Internal error. Unable to load user data into the system. Search for an administrator for support");
             System.exit(0);
         }
+        
+        access = new AccessControl(control);
     }
     
     public void mainMenu(){
@@ -35,7 +40,7 @@ public class UserForm {
             System.out.println("\nChoose one of the options below:\n" +
                           " 1 - Login\n" +
                           " 2 - Add user\n" +
-                          " 3 - Remove user\n" + 
+                          " 3 - Delete user\n" + 
                           " 4 - List user\n" +
                           " 5 - List all users\n" + 
                           " 0 - Exit");
@@ -73,29 +78,16 @@ public class UserForm {
         System.out.print("Enter login:");
         String login = input.next();
 
-        try{
-            control.list(login);
-        }
-        catch(UserException e){
-            System.out.println( e.getMessage());
-        }
-
         System.out.print("Enter password:");
         String password = input.next();
-
+        
         try{
-            if(control.verifyPassword(login, password)){
-                System.out.println("Successfully logged!");
-            }
-            else{
-                System.out.println("Incorrect login or password. Try again.");
-            }
+            access.login(login,password);
+            System.out.println("Successfully logged!");
         }
         catch(UserException e){
             System.out.println( e.getMessage());
         }
-        
-
     }
 
     private void addUserMenu(){
@@ -145,7 +137,7 @@ public class UserForm {
         String login = input.next();
 
         try{
-            System.out.println(control.list(login));
+            System.out.println(control.list(login) + "\n");
         }
         catch(UserException e){
             System.out.println( e.getMessage());

@@ -73,10 +73,10 @@ public class UserControl {
         return output;
     }
 
-    public String list(String login) throws UserException{
+    public User list(String login) throws UserException{
         
         if(users.get(login) != null){
-            return users.get(login) + "\n";
+            return users.get(login);
         }else{
             throw new UserException("User not registered");
         }
@@ -129,15 +129,5 @@ public class UserControl {
         else
             return false;
     }
-
-    public boolean verifyPassword(String login, String password) throws UserException{
-        if(users.get(login) != null){
-            if(users.get(login).getPassword().equals(password))
-                return true;
-            else
-                return false;
-        }else{
-            throw new UserException("User not registered");
-        }
-    }
+ 
 }
