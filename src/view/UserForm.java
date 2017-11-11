@@ -1,6 +1,6 @@
 package view;
 
-import bussiness.control.UserControl;
+import business.control.UserControl;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +24,7 @@ public class UserForm {
             System.exit(0);
         }
     }
+    
     public void mainMenu(){
         
         System.out.println("Welcome!");
@@ -32,10 +33,11 @@ public class UserForm {
         while(true){
        
             System.out.println("\nChoose one of the options below:\n" +
-                          " 1 - Add user\n" +
-                          " 2 - Remove user\n" + 
-                          " 3 - List user\n" +
-                          " 4 - List all users\n" + 
+                          " 1 - Login\n" +
+                          " 2 - Add user\n" +
+                          " 3 - Remove user\n" + 
+                          " 4 - List user\n" +
+                          " 5 - List all users\n" + 
                           " 0 - Exit");
        
             int choice = input.nextInt();
@@ -46,21 +48,56 @@ public class UserForm {
             
             switch(choice){
                 case 1:
-                    addUserMenu();
+                    loginMenu();
                     break;
                 case 2:
-                    deleteUserMenu();
+                    addUserMenu();
                     break;
                 case 3:
-                    listUserMenu();
+                    deleteUserMenu();
                     break;
                 case 4:
+                    listUserMenu();
+                    break;
+                case 5:
                     listAllUserMenu();
                     break;
+
             }
         }
         System.out.println("Thank you for using the system");
     }
+
+    private void loginMenu(){
+    
+        System.out.print("Enter login:");
+        String login = input.next();
+
+        try{
+            control.list(login);
+        }
+        catch(UserException e){
+            System.out.println( e.getMessage());
+        }
+
+        System.out.print("Enter password:");
+        String password = input.next();
+
+        try{
+            if(control.verifyPassword(login, password)){
+                System.out.println("Successfully logged!");
+            }
+            else{
+                System.out.println("Incorrect login or password. Try again.");
+            }
+        }
+        catch(UserException e){
+            System.out.println( e.getMessage());
+        }
+        
+
+    }
+
     private void addUserMenu(){
         
         while(true){
@@ -85,6 +122,7 @@ public class UserForm {
             }
         }
     }
+
     private void deleteUserMenu(){
     
         System.out.print("Enter login to delete:");
@@ -100,6 +138,7 @@ public class UserForm {
             System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
         }
     }
+
     private void listUserMenu(){
     
         System.out.print("Enter login to display:");
@@ -112,6 +151,7 @@ public class UserForm {
             System.out.println( e.getMessage());
         }
     }
+
     private void listAllUserMenu(){
     
         try{
