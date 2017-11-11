@@ -1,7 +1,9 @@
 package view;
 
 import business.control.AccessControl;
+import business.control.ProductControl;
 import business.control.UserControl;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,22 +14,30 @@ import util.UserException;
 
 public class UserForm {
     
-    private UserControl   control;
-    private Scanner       input;
-    private AccessControl access;  
+    private UserControl     user_control;
+    private ProductControl  product_control;
+    private Scanner         input;
+    private AccessControl   access;  
     
     public UserForm(){
         
         input = new Scanner(System.in);
+        input.useLocale(Locale.US);
         
         try {
-            control = new UserControl();
+            user_control = new UserControl();
         } catch (ControlException ex) {
             System.out.println("Internal error. Unable to load user data into the system. Search for an administrator for support");
             System.exit(0);
         }
-        
-        access = new AccessControl(control);
+        access = new AccessControl(user_control);
+    
+        try {
+            product_control = new ProductControl();
+        } catch (ControlException ex) {
+            System.out.println("Internal error. Unable to load product data into the system. Search for an administrator for support");
+            System.exit(0);
+        }
     }
     
     public void mainMenu(){
@@ -42,10 +52,15 @@ public class UserForm {
                           " 2 - Add user\n" +
                           " 3 - Delete user\n" + 
                           " 4 - List user\n" +
-                          " 5 - List all users\n" + 
+                          " 5 - List all users\n" +
+                          " 6 - Add product\n" +
+                          " 7 - Delete product\n" + 
+                          " 8 - List product\n" +
+                          " 9 - Show menu\n" +
                           " 0 - Exit");
        
             int choice = input.nextInt();
+            input.nextLine();
             
             if(choice == 0){
                 break;
@@ -66,6 +81,18 @@ public class UserForm {
                     break;
                 case 5:
                     listAllUserMenu();
+                    break;
+                case 6:
+                    addProductMenu();
+                    break;
+                case 7:
+                    deleteProductMenu();
+                    break;
+                case 8:
+                    listProductMenu();
+                    break;
+                case 9:
+                    listAllProductMenu();
                     break;
 
             }
@@ -101,7 +128,7 @@ public class UserForm {
             String password = input.next();
 
             try{
-                control.addUser(login,password);
+                user_control.addUser(login,password);
                 break;
             }
             catch(LoginException | PasswordException e){
@@ -121,7 +148,7 @@ public class UserForm {
         String login = input.next();
 
         try{
-            control.delete(login);
+            user_control.delete(login);
             System.out.print("Deleted user\n");
         }
         catch(UserException e){
@@ -137,7 +164,7 @@ public class UserForm {
         String login = input.next();
 
         try{
-            System.out.println(control.list(login) + "\n");
+            System.out.println(user_control.list(login) + "\n");
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -147,10 +174,66 @@ public class UserForm {
     private void listAllUserMenu(){
     
         try{
-            System.out.println(control.listAll());
+            System.out.println(user_control.listAll());
         }
         catch(UserException e){
             System.out.println( e.getMessage());
+        }
+    }
+    
+    private void addProductMenu(){
+        
+        while(true){
+            
+            System.out.print("Enter product name:");
+            String name = input.nextLine();
+
+            System.out.print("Enter product price:");
+            float price = input.nextFloat();
+            input.nextLine();
+
+            try{
+                product_control.addProduct(name,price);
+                break;
+            }catch (ControlException ex) {
+                System.out.println("Internal error. Unable to save product data into the system. Search for an administrator for support");
+            }
+        }
+    }
+
+    private void deleteProductMenu(){
+    
+        System.out.print("Enter product name to delete:");
+        String name = input.nextLine();
+
+        try{
+            product_control.delete(name);
+            System.out.print("Deleted product\n");
+        }catch (ControlException ex) {
+            System.out.println("Internal error. Unable to save product data into the system. Search for an administrator for support");
+        }
+    }
+
+    private void listProductMenu(){
+    
+        System.out.print("Enter product name:");
+        String name = input.nextLine();
+
+        try{
+            System.out.println(product_control.list(name) + "\n");
+        }
+        catch(ControlException e){
+            System.out.println( e.getMessage());
+        }
+    }
+
+    private void listAllProductMenu(){
+    
+        try{
+            System.out.println(product_control.listAll());
+        }
+        catch(ControlException e){
+            System.out.println(e.getMessage());
         }
     }
     

@@ -17,12 +17,12 @@ public class ProductControl {
     
     public ProductControl() throws ControlException{
  
-        /*persistence = PersistenceFactory.getPersistence("file") ;
+        persistence = PersistenceFactory.getPersistence("fileProduct") ;
         try {
-            products = persistence.loadUsers();
+            products = persistence.load();
         } catch (InfraException ex) {
             throw new ControlException("Can not access user data");
-        }*/
+        }
     
     }
 
@@ -34,11 +34,11 @@ public class ProductControl {
        
         products.put(name, new Product(name,price));
         
-        /*try {
-            persistence.saveUsers(products);
+        try {
+            persistence.save(products);
         } catch (InfraException ex) {
             throw new ControlException("Can not save user data");
-        }*/
+        }
        
     }
 
@@ -73,11 +73,11 @@ public class ProductControl {
         }else{
             throw new ControlException("Product not registered");
         }
-        /*try {
-            persistence.saveUsers(products);
+        try {
+            persistence.save(products);
         } catch (InfraException ex) {
             throw new ControlException("Can not save product data");
-        }*/        
+        }        
     }
 
     public int countProducts(){
@@ -88,11 +88,11 @@ public class ProductControl {
     public void clear() throws ControlException{
     
         products.clear();
-        /*try {
-            persistence.saveUsers(products);
+        try {
+            persistence.save(products);
         } catch (InfraException ex) {
             throw new ControlException("Can not save product data");
-        }*/
+        }
     }
 
     public boolean containsProduct(String name){

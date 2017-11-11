@@ -13,14 +13,20 @@ import java.util.HashMap;
 import java.util.Map;
 import util.InfraException;
 
-public class FilePersistence implements Persistence{
+public class FilePersistence <T> implements Persistence <T>{
 
-    public void saveUsers(Map<String,User> users) throws InfraException{
+    private String fileName;
+    
+    public FilePersistence(String file){
         
-        File file = new File("data.bin");
+        fileName = file;
+    }
+    public void save(Map<String,T> objects) throws InfraException{
+        
+        File file = new File(fileName);
         try{
             ObjectOutputStream out = new  ObjectOutputStream( new FileOutputStream(file));
-            out.writeObject(users);
+            out.writeObject(objects);
             out.close();
         
         }catch(FileNotFoundException e){
@@ -29,20 +35,20 @@ public class FilePersistence implements Persistence{
             throw new InfraException("IO problem");
         } 
     }
-    public Map<String,User> loadUsers() throws InfraException{
+    public Map<String,T> load() throws InfraException{
     
-        Map<String,User> users = new HashMap<String,User>();
-        File file = new File("data.bin");
+        Map<String,T> objects = new HashMap<String,T>();
+        File file = new File(fileName);
         ObjectInputStream input = null;
         InputStream in = null;
         
         if(!file.exists()){   
-            saveUsers(users);
+            save(objects);
         }
         try{
             in = new FileInputStream(file);
             input = new ObjectInputStream(in);
-            users = (Map<String,User>) input.readObject();
+            objects = (Map<String,T>) input.readObject();
             in.close();
         }catch(FileNotFoundException e){
             throw new InfraException("File not found");
@@ -51,7 +57,7 @@ public class FilePersistence implements Persistence{
         }catch (ClassNotFoundException e){
             throw new InfraException("Class not found");
         }
-        return users;
+        return objects;
     }
 }
 

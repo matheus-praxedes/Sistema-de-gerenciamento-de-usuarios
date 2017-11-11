@@ -16,9 +16,9 @@ public class UserControl {
     
     public UserControl() throws ControlException{
  
-        persistence = PersistenceFactory.getPersistence("file") ;
+        persistence = PersistenceFactory.getPersistence("fileUser") ;
         try {
-            users = persistence.loadUsers();
+            users = persistence.load();
         } catch (InfraException ex) {
             throw new ControlException("Can not access user data");
         }
@@ -50,7 +50,7 @@ public class UserControl {
         users.put(login, new User(login,password));
         
         try {
-            persistence.saveUsers(users);
+            persistence.save(users);
         } catch (InfraException ex) {
             throw new ControlException("Can not save user data");
         }
@@ -89,7 +89,7 @@ public class UserControl {
             throw new UserException("User not registered");
         }
         try {
-            persistence.saveUsers(users);
+            persistence.save(users);
         } catch (InfraException ex) {
             throw new ControlException("Can not save user data");
         }        
@@ -116,7 +116,7 @@ public class UserControl {
     
         users.clear();
         try {
-            persistence.saveUsers(users);
+            persistence.save(users);
         } catch (InfraException ex) {
             throw new ControlException("Can not save user data");
         }
