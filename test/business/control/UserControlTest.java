@@ -151,10 +151,12 @@ public class UserControlTest {
         }
         
         instance.addUser("cebolinha", "monica123");
-        String result = "cebolinha\tmonica123\n";
+        String result_login = "cebolinha";
+        String result_password = "monica123";
         
         try {
-            assertEquals(result, instance.list("cebolinha"));
+            assertEquals(result_login, instance.list("cebolinha").getLogin());
+            assertEquals(result_password, instance.list("cebolinha").getPassword());
         } catch (UserException ex) {
             fail("List should not be empty");
         }
