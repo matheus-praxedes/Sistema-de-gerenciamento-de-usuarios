@@ -43,7 +43,7 @@ public class Order implements Serializable{
         float total = 0.0f;
 
         for( Product p : products.keySet())
-            total += p.getValue() * products.get(p);
+            total += p.getPrice() * products.get(p);
 
         return total;
 

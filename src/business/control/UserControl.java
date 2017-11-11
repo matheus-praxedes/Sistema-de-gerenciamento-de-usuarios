@@ -1,7 +1,6 @@
 package business.control;
 
 import business.model.User;
-import infra.FilePersistence;
 import java.util.Map;
 import util.ControlException;
 import util.InfraException;

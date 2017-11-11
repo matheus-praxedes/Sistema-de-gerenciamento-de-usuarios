@@ -5,27 +5,32 @@ import java.io.Serializable;
 public class Product implements Serializable{
 
     private String name;
-    private float value;
+    private float price;
 
-    public Product(String name, float value){
+    public Product(String name, float price){
         this.name = name;
-        this.value = value;
+        this.price = price;
     }
 
     public String getName(){
         return name;
     }
 
-    public float getValue(){
-        return value;
+    public float getPrice(){
+        return price;
     }
 
     public void setName(String name){
         this.name = name;
     }
 
-    public void setValue(float value){
-        this.value = value;
+    public void setPrice(float price){
+        this.price = price;
     }
 
+    @Override
+    public String toString() {
+        
+        return name + "\tR$ " + price;
+    }
 }
