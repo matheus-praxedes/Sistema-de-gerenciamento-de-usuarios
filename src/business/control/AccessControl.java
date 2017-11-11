@@ -12,7 +12,7 @@ public class AccessControl{
     
         this.control = control;
     }
-    
+
     public void login(String login, String password) throws UserException{
         
         User usertmp;
