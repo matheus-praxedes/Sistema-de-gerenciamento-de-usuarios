@@ -9,7 +9,6 @@ import infra.Persistence;
 import infra.SMS;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import util.ControlException;
 import util.InfraException;
 
@@ -48,7 +47,6 @@ public class OrderControl{
        
        orders.put((orders.size()+1)+"",order);
         
-       
         try {
             persistence.save(orders);
         } catch (InfraException ex) {
@@ -56,13 +54,31 @@ public class OrderControl{
         }
        
         notification = new SMS();
-        notification.setDestiny(order.getUser().toString());
-        notification.notifyUser(order.toString());
+        
+        try {
+            notification.setDestiny(order.getUser().toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not set the destiny for sms");
+        }
+        try {
+            notification.notifyUser(order.toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not notify user by sms");
+        }
         
         notification = new Email();
-        notification.setDestiny(order.getUser().toString());
-        notification.notifyUser(order.toString());
-         
+        
+        try {
+            notification.setDestiny(order.getUser().toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not set the destiny for email");
+        }
+        try {
+            notification.notifyUser(order.toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not notify user by email");
+        }
+        
     }
 
     public String listAll() throws ControlException{
@@ -102,4 +118,20 @@ public class OrderControl{
             throw new ControlException("Can not save order data");
         }        
     }
+    
+     public void clear() throws ControlException{
+    
+        orders.clear();
+        try {
+            persistence.save(orders);
+        } catch (InfraException ex) {
+            throw new ControlException("Can not save order data");
+        }
+    }
+    
+    public int countOrders(){
+  
+        return orders.size(); 
+    } 
+     
 }

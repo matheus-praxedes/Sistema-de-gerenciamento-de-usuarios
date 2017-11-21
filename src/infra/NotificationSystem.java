@@ -6,7 +6,7 @@ import util.InfraException;
 
 public interface NotificationSystem {
 
-    public void notifyUser() throws InfraException;
-    public void setDestiny() throws InfraException;
+    public void notifyUser(String message) throws InfraException;
+    public void setDestiny(String number)  throws InfraException;
 }
 

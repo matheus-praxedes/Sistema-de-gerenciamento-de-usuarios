@@ -6,22 +6,22 @@ import util.InfraException;
 
 public class SMS implements NotificationSystem {
 
-    private String phone_number;
+    private String phone_number = "";
 
     @Override
     public void notifyUser(String message) throws InfraException {
 
-        if(message.empty()){
+        if(message.isEmpty()){
             throw new InfraException("Notification failed.");
         }
 
-        System.out.println("Notification sented to " + adress);
+        System.out.println("Notification sented to " + phone_number + " by email.");
     }
 
     @Override
     public void setDestiny(String number) throws InfraException{
 
-        if(number.empty()){
+        if(number.isEmpty()){
             throw new InfraException("Notification failed.");
         }
 

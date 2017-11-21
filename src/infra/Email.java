@@ -12,21 +12,21 @@ public class Email implements NotificationSystem {
     @Override
     public void notifyUser(String message) throws InfraException {
 
-        if(message.empty()){
+        if(message.isEmpty()){
             throw new InfraException("Notification failed.");
         }
 
-        System.out.println("Notification sented to " + adress);
+        System.out.println("Notification sented to " + adress + " by email.");
     }
 
     @Override
-    public void setDestiny(String adress) throws InfraException{
+    public void setDestiny(String number) throws InfraException{
 
-        if(adress.empty()){
+        if(number.isEmpty()){
             throw new InfraException("Notification failed.");
         }
 
-        this.adress = adress;
+        this.adress = number;
     }
     
 }

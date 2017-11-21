@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class Order implements Serializable{
 
-    private final User user;
-    private final Map<Product, Integer> products;
-    private final Date date;
+    private User user;
+    private Map<Product, Integer> products;
+    private Date date;
 
     public Order(User user, Date date){
         this.user = user;
@@ -17,9 +17,9 @@ public class Order implements Serializable{
     }
 
     public Order() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
-
+    
     public void addProduct( Product product ){
         if(products.keySet().contains(product))
             products.put(product, products.get(product)+1);
@@ -51,5 +51,18 @@ public class Order implements Serializable{
 
         return total;
 
+    }
+    @Override
+    public String toString(){
+        
+        String result = "";
+        
+        result += user.toString() + date.toString();
+        
+        for(Product p : products.keySet() ){
+            result += products.get(p) + " x " + p.toString();
+        }
+        
+        return result;
     }
 }
