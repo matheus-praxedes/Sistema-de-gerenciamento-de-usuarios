@@ -3,7 +3,10 @@ package business.control;
 import business.model.Date;
 import business.model.Order;
 import business.model.User;
+import infra.Email;
+import infra.NotificationSystem;
 import infra.Persistence;
+import infra.SMS;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +18,7 @@ public class OrderControl{
     private Map<String,Order> orders;
     private Persistence persistence;
     private ProductControl product_control;
+    private NotificationSystem notification;
     
     public OrderControl(ProductControl product_control) throws ControlException{
  
@@ -51,6 +55,14 @@ public class OrderControl{
             throw new ControlException("Can not save order data");
         }
        
+        notification = new SMS();
+        notification.notifyUser();
+        notification.setDestiny();
+        
+        notification = new Email();
+        notification.notifyUser();
+        notification.setDestiny();
+         
     }
 
     public String listAll() throws ControlException{
