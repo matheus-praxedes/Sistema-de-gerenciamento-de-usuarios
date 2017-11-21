@@ -1,13 +1,9 @@
 package business.control;
 
 import business.model.Product;
-import business.model.User;
 import java.util.Map;
 import util.ControlException;
 import util.InfraException;
-import util.LoginException;
-import util.PasswordException;
-import util.UserException;
 import infra.Persistence;
 
 public class ProductControl {
@@ -21,7 +17,7 @@ public class ProductControl {
         try {
             products = persistence.load();
         } catch (InfraException ex) {
-            throw new ControlException("Can not access user data");
+            throw new ControlException("Can not access product data");
         }
     
     }
@@ -37,7 +33,7 @@ public class ProductControl {
         try {
             persistence.save(products);
         } catch (InfraException ex) {
-            throw new ControlException("Can not save user data");
+            throw new ControlException("Can not save product data");
         }
        
     }

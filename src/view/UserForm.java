@@ -4,6 +4,9 @@ import business.control.AccessControl;
 import business.control.Facade;
 import business.control.ProductControl;
 import business.control.UserControl;
+import business.model.Order;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import util.ControlException;
@@ -38,16 +41,17 @@ public class UserForm {
         while(true){
        
             System.out.println("\nChoose one of the options below:\n" +
-                          " 1 - Login\n" +
-                          " 2 - Add user\n" +
-                          " 3 - Delete user\n" + 
-                          " 4 - List user\n" +
-                          " 5 - List all users\n" +
-                          " 6 - Add product\n" +
-                          " 7 - Delete product\n" + 
-                          " 8 - List product\n" +
-                          " 9 - Show menu\n" +
-                          " 0 - Exit");
+                          " 1  - Login\n" +
+                          " 2  - Add user\n" +
+                          " 3  - Delete user\n" + 
+                          " 4  - List user\n" +
+                          " 5  - List all users\n" +
+                          " 6  - Add product\n" +
+                          " 7  - Delete product\n" + 
+                          " 8  - List product\n" +
+                          " 9  - Show menu\n" +
+                          " 10 - Make order\n" +
+                          " 0  - Exit");
        
             int choice = input.nextInt();
             input.nextLine();
@@ -83,6 +87,9 @@ public class UserForm {
                     break;
                 case 9:
                     listAllProductMenu();
+                    break;
+                case 10:
+                    makeOrderMenu();
                     break;
 
             }
@@ -227,4 +234,31 @@ public class UserForm {
         }
     }
     
-}
+    private void makeOrderMenu(){
+        
+        List<String> orders = new ArrayList<>();
+            
+        while(true){
+            
+            System.out.print("Enter product name. Type zero to exit:");
+            String name = input.nextLine();
+
+
+            if(name.equals("0")){
+               break;
+            }
+            
+            orders.add(name);
+            
+        }
+        
+        try{
+            facade.newOrder(orders);      
+        }catch (ControlException ex) {
+            System.out.println("\nInvalid order. Try again.");
+        }
+        
+        System.out.print("Order made successfully");
+        
+    }
+ }

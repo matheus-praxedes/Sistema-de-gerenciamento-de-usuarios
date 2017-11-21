@@ -1,7 +1,12 @@
 package business.control;
 
+import business.model.Date;
+import business.model.Order;
 import business.model.Product;
 import business.model.User;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.util.Calendar;
+import java.util.List;
 import util.ControlException;
 import util.LoginException;
 import util.PasswordException;
@@ -11,6 +16,7 @@ public class Facade {
  
     private ProductControl product;
     private UserControl    user;
+    private OrderControl   order;
     private AccessControl  access;
     
     public Facade() throws ControlException {
@@ -18,6 +24,7 @@ public class Facade {
         try{
             product = new ProductControl();
             user    = new UserControl();
+            order   = new OrderControl(product);
             access  = new AccessControl(user);
         }catch(ControlException e){
             System.out.println(e.getMessage());
@@ -58,6 +65,30 @@ public class Facade {
         return product.listAll();
     }
     
+    public void newOrder(List<String> orders) throws ControlException{
+    
+        java.util.Date date = new java.util.Date();
+        Calendar cal;
+ 
+        cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        
+        order.makeOrder(access.getUser(), new Date(day,month,year), orders);
+    }
+    public void deleteOrder(String name) throws ControlException{
+        order.delete(name);
+    }
+    
+    public Order listOrder(String name) throws ControlException{
+        return order.list(name);
+    }
+    
+    public String listAllOrders() throws ControlException{
+        return order.listAll();
+    }
     public void loginSystem(String login, String password) throws UserException{
         access.login(login, password);
     }

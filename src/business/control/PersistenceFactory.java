@@ -14,6 +14,7 @@ public abstract class PersistenceFactory{
             factoryList = new HashMap<String, PersistenceFactory>();
             factoryList.put("fileUser", FilePersistenceUserFactory.getInstance() );
             factoryList.put("fileProduct", FilePersistenceProductFactory.getInstance() );
+            factoryList.put("fileOrder", FilePersistenceOrderFactory.getInstance() );
         }
 
         PersistenceFactory factory = factoryList.get(type);

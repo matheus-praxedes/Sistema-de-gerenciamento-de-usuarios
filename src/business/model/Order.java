@@ -6,14 +6,18 @@ import java.io.Serializable;
 
 public class Order implements Serializable{
 
-    private User user;
-    private Map<Product, Integer> products;
-    private Date date;
+    private final User user;
+    private final Map<Product, Integer> products;
+    private final Date date;
 
     public Order(User user, Date date){
         this.user = user;
         this.date = date;
         products = new HashMap<Product, Integer>();
+    }
+
+    public Order() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void addProduct( Product product ){
