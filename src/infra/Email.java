@@ -7,9 +7,26 @@ import util.InfraException;
 
 public class Email implements NotificationSystem {
 
+    private String adress;
+
     @Override
-    public void notifyUser() throws InfraException {
-        throw new InfraException("Notification failed."); 
+    public void notifyUser(String message) throws InfraException {
+
+        if(message.empty()){
+            throw new InfraException("Notification failed.");
+        }
+
+        System.out.println("Notification sented to " + adress);
+    }
+
+    @Override
+    public void setDestiny(String adress) throws InfraException{
+
+        if(adress.empty()){
+            throw new InfraException("Notification failed.");
+        }
+
+        this.adress = adress;
     }
     
 }

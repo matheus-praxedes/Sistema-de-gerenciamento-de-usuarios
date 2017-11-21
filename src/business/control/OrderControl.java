@@ -56,12 +56,12 @@ public class OrderControl{
         }
        
         notification = new SMS();
-        notification.notifyUser();
-        notification.setDestiny();
+        notification.setDestiny(order.getUser().toString());
+        notification.notifyUser(order.toString());
         
         notification = new Email();
-        notification.notifyUser();
-        notification.setDestiny();
+        notification.setDestiny(order.getUser().toString());
+        notification.notifyUser(order.toString());
          
     }
 
