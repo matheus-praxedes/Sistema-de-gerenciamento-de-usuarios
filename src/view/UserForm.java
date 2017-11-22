@@ -256,8 +256,14 @@ public class UserForm {
             String name = input.nextLine();
 
 
-            if(name.equals("0")){
-               break;
+            if(!name.equals("0")){ 
+               
+            }
+            else if(orders.size() > 0){
+                break;
+            }
+            else{
+               return;
             }
             
             orders.add(name);

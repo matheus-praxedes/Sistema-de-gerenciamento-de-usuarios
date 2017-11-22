@@ -3,10 +3,10 @@ package business.control;
 import business.model.Date;
 import business.model.Order;
 import business.model.User;
-import infra.Email;
+import infra.EmailSystem;
 import infra.NotificationSystem;
 import infra.Persistence;
-import infra.SMS;
+import infra.SmsSystem;
 import java.util.List;
 import java.util.Map;
 import util.ControlException;
@@ -52,8 +52,8 @@ public class OrderControl{
         } catch (InfraException ex) {
             throw new ControlException("Can not save order data");
         }
-       
-        notification = new SMS();
+               
+        notification = new SmsSystem();
         
         try {
             notification.setDestiny(order.getUser().getPhoneNumber());
@@ -66,7 +66,7 @@ public class OrderControl{
             throw new ControlException("Can not notify user by sms");
         }
         
-        notification = new Email();
+        notification = new EmailSystem();
         
         try {
             notification.setDestiny(order.getUser().getEmail());

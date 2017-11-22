@@ -5,7 +5,7 @@ import util.InfraException;
 
 /*Esta classe implementa o padrão Adapter*/
 
-public class Email implements NotificationSystem {
+public class EmailSystem implements NotificationSystem {
 
     private String adress;
 

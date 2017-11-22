@@ -4,7 +4,7 @@ import util.InfraException;
 
 /*Esta classe implementa o padrão Adapter*/
 
-public class SMS implements NotificationSystem {
+public class SmsSystem implements NotificationSystem {
 
     private String phone_number = "";
 
