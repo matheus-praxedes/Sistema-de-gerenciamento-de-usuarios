@@ -35,4 +35,4 @@ public class AccessControl{
     public User getUser(){
         return loggedUser;
     }
- }
+}

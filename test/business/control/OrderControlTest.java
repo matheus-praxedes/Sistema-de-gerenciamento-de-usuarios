@@ -4,89 +4,105 @@ import business.model.User;
 import business.model.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import util.ControlException;
+import util.LoginException;
+import util.PasswordException;
+import util.UserException;
 
 public class OrderControlTest {
    
     ProductControl product_control;
     OrderControl   instance;
-    //User           logged_user;
-    //Date           date;
-    //List<String>   list;
+    UserControl    user_control;
+    AccessControl  access;
     
     void init() throws ControlException{     
+        
         instance.clear();
+        product_control.clear();
+        user_control.clear();
     }
     @Before
     public void setUp() throws ControlException {
        
        product_control = new ProductControl();
        instance = new OrderControl(product_control);
-       //logged_user = new User();
-       //date = new Date(23,11,2017);
-       //list = new ArrayList<>();
+       access = new AccessControl(user_control);
     }
     @After
     public void tearDown() throws ControlException {
     
         instance.clear();
+        product_control.clear();
+        user_control.clear();
     }
 
     @Test
     public void testMakeOrder() throws ControlException{
         
+        user_control = new UserControl();
+        Date date = new Date(10,11,2017);
+        List<String> list = new ArrayList<>();
+        access = new AccessControl(user_control);
+         
         String name;
         Float price;
         
         price = 1.30f;
         name  = "suco";
-        
-        try {
-            product_control.addProduct(name, price);
-            assertTrue(true);
-        } catch (ControlException ex) {
-            fail("Test fail. Should throws control exception");    
-        }
+        product_control.addProduct(name, price);
         
         price = 1.25f;
         name  = "água mineral";
-        
-        try {
-            product_control.addProduct(name, price);
-            assertTrue(true);
-        } catch (ControlException ex) {
-            fail("Test fail. Should throws control exception");    
-        }
-        
-        User           logged_user = new User("miguelx","2526272829");
-        Date           date = new Date(10,11,2017);
-        List<String>   list = new ArrayList<>();
-        
+        product_control.addProduct(name, price);
+                
         list.add("suco");
         list.add("água mineral");
         
         try {
-            instance.makeOrder(logged_user, date,list);
+            user_control.addUser("matheus", "12345678","ma@gmail.com","90015-1214");
+            assertTrue(true);
+        } catch (LoginException ex) {
+            fail("Test fail. Should not throws login exception");
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        }
+        try {
+            access.login("matheus", "12345678");
+            assertTrue(true);
+        } catch (UserException ex) {
+             fail("Test fail. Should not throws user exception");
+        }
+               
+        try {
+            instance.makeOrder(access.getUser(), date, list);
             assertTrue(true);
         } catch (ControlException ex) {
-            fail("Test fail. Should throws control exception");    
+            fail("Test fail. Should not throws control exception");    
         }
         
         list.add("café");
         
         try {
-            instance.makeOrder(logged_user, date,list);
+            instance.makeOrder(access.getUser(), date,list);
             fail("Test fail. Should throws control exception");
         } catch (ControlException ex) {
             assertTrue(true);
-        } 
+        }
     }
     
     public void testListAll() throws ControlException{
+        
+        user_control = new UserControl();
+        Date date = new Date(10,11,2017);
+        List<String> list = new ArrayList<>();
+        access = new AccessControl(user_control);
         
         try {
             instance.delete("banana");
@@ -94,88 +110,142 @@ public class OrderControlTest {
         } catch (ControlException ex) {
             assertTrue(true);
         }
-
+        
         product_control.addProduct("suco", 1.30f);
         product_control.addProduct("água mineral", 1.25f);
-        
-        User           logged_user = new User("miguely","2526272830");
-        Date           date = new Date(11,11,2017);
-        List<String>   list = new ArrayList<>();
-        
+         
         list.add("suco");
         list.add("água mineral");
+
         
-        instance.makeOrder(logged_user, date,list);
+        try {
+            user_control.addUser("matheus", "12345678","ma@gmail.com","90015-1214");
+            assertTrue(true);
+        } catch (LoginException ex) {
+            fail("Test fail. Should not throws login exception");
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        }
+        try {
+            access.login("matheus", "12345678");
+            assertTrue(true);
+        } catch (UserException ex) {
+             fail("Test fail. Should not throws user exception");
+        }
+               
+        try {
+            instance.makeOrder(access.getUser(), date, list);
+            assertTrue(true);
+        } catch (ControlException ex) {
+            fail("Test fail. Should not throws control exception");    
+        }
 
         String result = "suco\tR$ 1.30\nágua mineral\tR$ 1.25\n";
         
         try {
-            assertEquals( result, instance.listAll());
+            assertEquals(result, instance.listAll());
         } catch (ControlException ex) {
             fail("List should not be empty");
         }
-       
     }
     
     public void testList() throws ControlException{
-           
+        
+        user_control = new UserControl();
+        Date date = new Date(10,11,2017);
+        List<String> list = new ArrayList<>();
+        access = new AccessControl(user_control);
+        
         try {
-            instance.delete("hamburger");
+            instance.delete("hamburguer");
             fail("List is empty");
         } catch (ControlException ex) {
             assertTrue(true);
         }
         
-        
-        product_control.addProduct("suco", 1.30f);
-        
-        User           logged_user = new User("miguelz","2526272831");
-        Date           date = new Date(12,11,2017);
-        List<String>   list = new ArrayList<>();
-        
-        list.add("suco");
-        instance.makeOrder(logged_user, date,list);
-        
-        String result_name = "suco";
-        float result_price = 1.30f;
-        User  user = new User("miguelz","2526272831");
-        Date  date_local = new Date(12,11,2017);
+        product_control.addProduct("hamburguer", 10.50f);
+        list.add("hamburguer");
+
+        try {
+            user_control.addUser("matheus", "12345678","ma@gmail.com","90015-1214");
+            assertTrue(true);
+        } catch (LoginException ex) {
+            fail("Test fail. Should not throws login exception");
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        }
+        try {
+            access.login("matheus", "12345678");
+            assertTrue(true);
+        } catch (UserException ex) {
+             fail("Test fail. Should not throws user exception");
+        }
+               
+        try {
+            instance.makeOrder(access.getUser(), date, list);
+            assertTrue(true);
+        } catch (ControlException ex) {
+            fail("Test fail. Should not throws control exception");    
+        }
+      
+        String result_user = "matheus";
+        float result_price = 10.50f;
+        String result_date = "10/11/2017";
         
         try {
-            assertEquals(user, instance.list("suco").getUser());
-            assertEquals(date_local, instance.list("suco").getDate());
-            assertEquals(result_price, instance.list("suco").getValue(),0.0001f);
+            assertEquals(result_user, instance.list("hamburger").getUser());
+            assertEquals(result_price, instance.list("hamburger").getValue(),0.0001f);
+            assertEquals(result_date, instance.list("hamburger").getDate());
         } catch (ControlException ex) {
             fail("List should not be empty");
         }
-                
-    
     }
     
     @Test
     public void testDelete() throws ControlException{
-       
+   
+        user_control = new UserControl();
+        Date date = new Date(10,11,2017);
+        List<String> list = new ArrayList<>();
+        access = new AccessControl(user_control);
+        
         try {
             instance.delete("sorvete");
             fail("List is empty");
         } catch (ControlException ex) {
             assertTrue(true);
         }
-        product_control.addProduct("sorvete", 1.25f);
         
-        User           logged_user = new User("raquel","3026312838");
-        Date           date = new Date(15,11,2017);
-        List<String>   list = new ArrayList<>();
-        
+        product_control.addProduct("sorvete", 2.60f);
         list.add("sorvete");
-        instance.makeOrder(logged_user,date,list);
         
         try {
+            user_control.addUser("matheus", "12345678","ma@gmail.com","90015-1214");
+            assertTrue(true);
+        } catch (LoginException ex) {
+            fail("Test fail. Should not throws login exception");
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        }
+        try {
+            access.login("matheus", "12345678");
+            assertTrue(true);
+        } catch (UserException ex) {
+             fail("Test fail. Should not throws user exception");
+        }
+               
+        try {
+            instance.makeOrder(access.getUser(), date, list);
+            assertTrue(true);
+        } catch (ControlException ex) {
+            fail("Test fail. Should not throws control exception");   
+            ex.printStackTrace(System.out);
+        }
+        try {
             instance.delete("sorvete");
-            assertEquals(1,instance.countOrders());
+            assertEquals(0,instance.countOrders());
         } catch (ControlException ex) {
             fail("List is not empty");
-        }
-        
+        }  
     }
 }

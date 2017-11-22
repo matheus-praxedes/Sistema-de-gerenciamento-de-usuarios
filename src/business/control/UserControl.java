@@ -57,6 +57,31 @@ public class UserControl {
        
     }
 
+    public void addUser(String login, String password, String email, String phone_number) 
+    throws LoginException,PasswordException,ControlException{
+    
+        addUser(login,password);
+        
+        String[] pn = phone_number.split("-");
+        String[] e  = email.split("@");
+                
+        if(pn.length != 2 || pn[0].length() != 5 || pn[1].length() != 4){
+            throw new ControlException("Ill-formed phone number. Ex: 90000-0000");
+        }
+        else if(e.length != 2 || e[0].isEmpty() || e[1].isEmpty()){
+            throw new ControlException("Email error");
+        }
+        
+        users.get(login).setEmail(email);
+        users.get(login).setPhoneNumber(phone_number);
+        
+        try {
+            persistence.save(users);
+        } catch (InfraException ex) {
+            throw new ControlException("Can not save user data");
+        }
+    }
+    
     public String listAll() throws UserException{
         
         String output = "";

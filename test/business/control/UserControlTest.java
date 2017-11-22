@@ -40,7 +40,9 @@ public class UserControlTest {
         
         String login;
         String password;
-        
+        String email;
+        String phone;
+                
         password = "12345678";
         
         login = "matheuspraxedes";
@@ -116,6 +118,72 @@ public class UserControlTest {
         } catch (PasswordException ex) {
             fail("Test fail. Should not throws password exception");
         }
+        
+        password = "12345679";
+        login    = "miguel";
+        phone    = "90000-0000";
+        
+        email = "mx@gmail.com";
+        try {
+            instance.addUser(login, password, email, phone);
+            assertTrue(true);  
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        } catch (util.LoginException ex) {
+            fail("Test fail.Should not throws login exception");
+        } catch (ControlException ex) {
+            fail("Test fail.Should not throws control exception");
+        }        
+        
+        email = "@mxgmail.com";
+        try {
+            instance.addUser(login, password, email, phone);
+            fail("Test fail.Should throws control exception");  
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        } catch (util.LoginException ex) {
+            fail("Test fail.Should not throws login exception");
+        } catch (ControlException ex) {
+            assertTrue(true);
+        }        
+        
+        email = "mxgmail.com";
+        try {
+            instance.addUser(login, password, email, phone);
+            fail("Test fail.Should throws control exception");  
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        } catch (util.LoginException ex) {
+            fail("Test fail.Should not throws login exception");
+        } catch (ControlException ex) {
+            assertTrue(true);
+        }        
+        
+        email = "mx@gmail.com";
+        
+        phone = "900000000";
+        try {
+            instance.addUser(login, password, email, phone);
+            fail("Test fail.Should throws control exception");  
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        } catch (util.LoginException ex) {
+            fail("Test fail.Should not throws login exception");
+        } catch (ControlException ex) {
+            assertTrue(true);
+        }    
+        
+        phone = "90000-000";
+        try {
+            instance.addUser(login, password, email, phone);
+            fail("Test fail.Should throws control exception");  
+        } catch (PasswordException ex) {
+            fail("Test fail. Should not throws password exception");
+        } catch (util.LoginException ex) {
+            fail("Test fail.Should not throws login exception");
+        } catch (ControlException ex) {
+            assertTrue(true);
+        }
     }
    
     @Test
@@ -128,9 +196,9 @@ public class UserControlTest {
             assertTrue(true);
         }
         
-        instance.addUser("andre", "12345678");
-        instance.addUser("karla", "123456789");
-        String result = "andre\t12345678\nkarla\t123456789\n";
+        instance.addUser("andre", "12345678","and@gmail.com","98881-0215");
+        instance.addUser("karla", "123456789","kl@gmail.com","97745-2114");
+        String result = "andre\t12345678\tand@gmail.com\t98881-0215\nkarla\t123456789\tkl@gmail.com\t97745-2114\n";
         
         try {
             assertEquals( result,instance.listAll());

@@ -56,7 +56,7 @@ public class OrderControl{
         notification = new SMS();
         
         try {
-            notification.setDestiny(order.getUser().toString());
+            notification.setDestiny(order.getUser().getPhoneNumber());
         } catch (InfraException ex) {
             throw new ControlException("Can not set the destiny for sms");
         }
@@ -69,7 +69,7 @@ public class OrderControl{
         notification = new Email();
         
         try {
-            notification.setDestiny(order.getUser().toString());
+            notification.setDestiny(order.getUser().getEmail());
         } catch (InfraException ex) {
             throw new ControlException("Can not set the destiny for email");
         }
@@ -119,7 +119,7 @@ public class OrderControl{
         }        
     }
     
-     public void clear() throws ControlException{
+    public void clear() throws ControlException{
     
         orders.clear();
         try {

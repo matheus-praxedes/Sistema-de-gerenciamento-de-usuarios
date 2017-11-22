@@ -32,9 +32,9 @@ public class Facade {
         
     }
     
-    public void addUser(String login, String password) throws LoginException, PasswordException, ControlException{
+    public void addUser(String login, String password, String email, String phone) throws LoginException, PasswordException, ControlException{
         
-        user.addUser(login, password);
+        user.addUser(login, password, email, phone);
     }
     
     public void deleteUser(String login) throws UserException, ControlException{

@@ -51,7 +51,8 @@ public class UserForm {
                           " 8  - List product\n" +
                           " 9  - Show menu\n" +
                           " 10 - Make order\n" +
-                          " 0  - Exit");
+                          " 11 - Logout\n" +
+                          " 0  - Exit system");
        
             int choice = input.nextInt();
             input.nextLine();
@@ -91,6 +92,10 @@ public class UserForm {
                 case 10:
                     makeOrderMenu();
                     break;
+                case 11:
+                    logoutMenu();
+                    break;
+
 
             }
         }
@@ -123,9 +128,15 @@ public class UserForm {
 
             System.out.print("Enter your password:");
             String password = input.next();
+            
+            System.out.print("Enter your email:");
+            String email = input.next();
+            
+            System.out.print("Enter your phone number:");
+            String phone = input.next();
 
             try{
-                facade.addUser(login,password);
+                facade.addUser(login, password, email, phone);
                 break;
             }
             catch(LoginException | PasswordException e){
@@ -135,6 +146,7 @@ public class UserForm {
                 
             } catch (ControlException ex) {
                 System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
+                ex.printStackTrace(System.out);
             }
         }
     }
@@ -240,7 +252,7 @@ public class UserForm {
             
         while(true){
             
-            System.out.print("Enter product name. Type zero to exit:");
+            System.out.print("Enter product name or type '0' to exit:");
             String name = input.nextLine();
 
 
@@ -260,5 +272,10 @@ public class UserForm {
         
         System.out.print("Order made successfully");
         
+    }
+    
+    private void logoutMenu(){
+        
+        facade.logoutSystem();
     }
  }
