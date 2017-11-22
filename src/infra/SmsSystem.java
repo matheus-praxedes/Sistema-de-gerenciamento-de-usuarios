@@ -15,7 +15,7 @@ public class SmsSystem implements NotificationSystem {
             throw new InfraException("Notification failed.");
         }
 
-        System.out.println("Notification sented to " + phone_number + " by email.");
+        System.out.println("Notification sented to " + phone_number + " by sms.");
     }
 
     @Override

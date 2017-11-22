@@ -18,6 +18,7 @@ public class OrderControl{
     private Persistence persistence;
     private ProductControl product_control;
     private NotificationSystem notification;
+    private int id = 0;
     
     public OrderControl(ProductControl product_control) throws ControlException{
  
@@ -28,7 +29,11 @@ public class OrderControl{
         } catch (InfraException ex) {
             throw new ControlException("Can not access order data");
         }
-    
+        for(String s: orders.keySet()){
+          
+            id = id > Integer.parseInt(s)? id: Integer.parseInt(s); 
+        }
+        id++;
     }
 
     public void makeOrder(User loggedUser, Date date, List<String> productNames) throws ControlException{
@@ -45,7 +50,7 @@ public class OrderControl{
             
         }
        
-       orders.put((orders.size()+1)+"",order);
+       orders.put(id++ +"",order);
         
         try {
             persistence.save(orders);
