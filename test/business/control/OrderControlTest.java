@@ -88,18 +88,11 @@ public class OrderControlTest {
         }
     }
     
+    @Test
     public void testListAll() throws ControlException{
-        
         
         Date date = new Date(10,11,2017);
         List<String> list = new ArrayList<>();
-        
-        try {
-            instance.delete("1");
-            assertTrue(true);
-        } catch (ControlException ex) {
-            fail("List is empty");
-        }
         
         product_control.addProduct("chá", 1.30f);
         product_control.addProduct("batata frita", 1.25f);
@@ -114,8 +107,8 @@ public class OrderControlTest {
             fail("Test fail. Should not throws control exception");    
         }
 
-        String result = "chá\tR$ 1.30\nbatata frita\tR$ 1.25\n";
-        
+        String result = "\nmatheus\t12345678\tma@gmail.com\t90015-121410/11/20171\tx\tchá\tR$ 1.31\tx\tbatata frita\tR$ 1.25\n";
+        System.out.println( instance.listAll());
         try {
             assertEquals(result, instance.listAll());
         } catch (ControlException ex) {
@@ -123,18 +116,13 @@ public class OrderControlTest {
         }
     }
     
+    @Test
     public void testList() throws ControlException{
         
        
         Date date = new Date(10,11,2017);
         List<String> list = new ArrayList<>();
        
-        try {
-            instance.delete("2");
-            assertTrue(true);
-        } catch (ControlException ex) {
-            fail("List is empty");
-        }
         
         product_control.addProduct("hamburguer", 10.50f);
         list.add("hamburguer");
@@ -152,9 +140,9 @@ public class OrderControlTest {
         String result_date = "10/11/2017";
         
         try {
-            assertEquals(result_user, instance.list("hamburger").getUser());
-            assertEquals(result_price, instance.list("hamburger").getValue(),0.0001f);
-            assertEquals(result_date, instance.list("hamburger").getDate());
+            assertEquals(result_user, instance.list("1").getUser().getLogin());
+            assertEquals(result_price, instance.list("1").getValue(),0.0001f);
+            assertEquals(result_date, instance.list("1").getDate().toString());
         } catch (ControlException ex) {
             fail("List should not be empty");
         }
@@ -162,16 +150,15 @@ public class OrderControlTest {
     
     @Test
     public void testDelete() throws ControlException{
-   
-        
+           
         Date date = new Date(10,11,2017);
         List<String> list = new ArrayList<>();
-         
+    
         try {
             instance.delete("3");
-            assertTrue(true);
-        } catch (ControlException ex) {
             fail("List is empty");
+        } catch (ControlException ex) {
+            assertTrue(true);
         }
         
         product_control.addProduct("sorvete", 2.60f);
@@ -184,12 +171,14 @@ public class OrderControlTest {
             fail("Test fail. Should not throws control exception");   
             ex.printStackTrace(System.out);
         }
+
         try {
-            instance.delete("4");
+            instance.delete("1");
             assertEquals(0,instance.countOrders());
         } catch (ControlException ex) {
             fail("List is not empty");
         }  
+        
         try {
             instance.delete("5");
             fail("List is not empty");

@@ -132,6 +132,7 @@ public class OrderControl{
         } catch (InfraException ex) {
             throw new ControlException("Can not save order data");
         }
+        id = 1;
     }
     
     public int countOrders(){

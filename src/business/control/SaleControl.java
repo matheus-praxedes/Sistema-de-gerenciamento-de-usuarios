@@ -106,6 +106,7 @@ public class SaleControl {
         } catch (InfraException ex) {
             throw new ControlException("Can not save sale data");
         }
+        id_count = 1;
     }
     
     public int countOrders(){
