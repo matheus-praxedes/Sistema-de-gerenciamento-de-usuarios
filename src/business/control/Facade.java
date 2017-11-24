@@ -2,6 +2,7 @@ package business.control;
 
 import business.model.Date;
 import business.model.Order;
+import business.model.OrderReport;
 import business.model.Product;
 import business.model.User;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
@@ -107,5 +108,15 @@ public class Facade {
     
     public User getUserLogged(){
         return access.getUser();
+    }
+
+    // ----------------------------------------------------------------------------------
+
+    public String getOrderReport() throws ControlException{
+        
+        OrderReport report = new OrderReport(order);
+
+        report.generate();
+        return report.getContent();
     }
 }

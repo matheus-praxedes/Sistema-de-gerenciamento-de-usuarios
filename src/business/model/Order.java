@@ -56,13 +56,16 @@ public class Order implements Serializable{
     public String toString(){
         
         String result = "";
-
         result += String.format("%-20s%10s", user.getLogin(), date.toString());
         result += "\n";
         
         for(Product p : products.keySet() ){
             result += products.get(p) + " x " + p.toString() + "\n";
         }
+
+        result += "------------------------------\n";
+        result += String.format("%-24sR$%5.2f", "Total", getValue());
+        result += "\n";
         
         return result;
     }

@@ -1,6 +1,7 @@
 package business.model;
 
-import business.control.OrderControl;;
+import business.control.OrderControl;
+import util.ControlException;
 import java.util.List;
 
 public class OrderReport extends Report{
@@ -10,9 +11,6 @@ public class OrderReport extends Report{
 
     public OrderReport(OrderControl orders){
         ordersList = orders;
-
-        // for( Order order : ordersList)
-        //     totalOrders += order.getValue();
     }
 
     @Override
@@ -21,15 +19,21 @@ public class OrderReport extends Report{
     }
 
     @Override
-    public String generateData(){
+    public String generateData() throws ControlException{
 
         String result = "";
+        float total = 0.0f;
 
-        // for( Order order : ordersList)
-        //     result += order.getDate() + " ______ " + order.getValue();
+        for( Order order : ordersList.listAll()){
+            result += order.toString() + "\n";
+            total += order.getValue();
+        }
+
+        result += "################################\n";
+        result += String.format("%-24sR$%5.2f", "Total no período", total);
+        result += "\n";
 
         return result;
-
     }
 
     @Override
@@ -47,9 +51,4 @@ public class OrderReport extends Report{
 
         return result;
     }
-
-    // @Override
-    // public void action(){
-    //     System.out.println(content);
-    // }
 }

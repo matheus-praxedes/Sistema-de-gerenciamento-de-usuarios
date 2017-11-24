@@ -56,9 +56,9 @@ public class UserForm {
                           " 2  - Logout\n" +
                           " ------------------------\n" +
                           " 10 - Register user\n" +
-                          " 12 - Delete user\n" + 
-                          " 13 - List user\n" +
-                          " 14 - List all users\n" +
+                          " 11 - Delete user\n" + 
+                          " 12 - List user\n" +
+                          " 13 - List all users\n" +
                           " ------------------------\n" +
                           " 20 - Register product\n" +
                           " 21 - Delete product\n" + 
@@ -237,7 +237,7 @@ public class UserForm {
             System.out.println("-----------------------------------------------------------------------------------");
             
             for(User u : all_users)
-                System.out.println(u + "\n");
+                System.out.println(u);
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -305,7 +305,7 @@ public class UserForm {
             System.out.println("---------------------------");
             
             for(Product p : all_products)
-                System.out.println(p + "\n");
+                System.out.println(p);
         }
         catch(ControlException e){
             System.out.println(e.getMessage());
@@ -332,8 +332,7 @@ public class UserForm {
                return;
             }
             
-            orders.add(name);
-            
+            orders.add(name);      
         }
         
         try{
@@ -465,7 +464,11 @@ public class UserForm {
     }
 
     private void showOrderReportMenu(){
-
         
+        try{
+            System.out.println(facade.getOrderReport());
+        }catch (ControlException ex) {
+            System.out.println("\nCan't generate report.");
+        }
     }
  }
