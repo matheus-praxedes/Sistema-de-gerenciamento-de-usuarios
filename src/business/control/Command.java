@@ -1,6 +1,6 @@
 package business.control;
 
-import business.model.Sale;
+import business.model.memento.Sale;
 import util.ControlException;
 
 public interface Command{

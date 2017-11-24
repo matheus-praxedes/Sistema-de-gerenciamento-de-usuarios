@@ -1,13 +1,21 @@
-package business.model;
+package business.model.memento;
 
 import java.util.HashSet;
 import java.util.Set;
+import business.model.Product;
+import java.io.Serializable;
 
-public class Sale {
+public class Sale implements Serializable{
 
     private String id;
     private float  discount;
     private Set<Product> products;
+
+    public Sale() {
+        this.id = "";
+        this.discount = 0.0f;
+        this.products = new HashSet<>();
+    }
 
     public Sale(String id, float discount) {
         this.id = id;
@@ -76,6 +84,21 @@ public class Sale {
         }
        
         return result + getNormalPrice() + "\n" + discount + "\n" + getSalePrice();
+    }
+
+    public void setMemento(SaleMemento mem){
+
+        SaleState state = mem.getState();
+
+        id = state.id;
+        discount = state.discount;
+        products = state.products;
+
+    }
+
+    public SaleMemento createMemento(){
+
+        return new SaleMemento(new SaleState(id, discount, products));
     }
     
 }

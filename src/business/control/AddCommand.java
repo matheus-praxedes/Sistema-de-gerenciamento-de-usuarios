@@ -1,7 +1,7 @@
 package business.control;
 
 import java.util.List;
-import business.model.Sale;
+import business.model.memento.Sale;
 import util.ControlException;
 
 public class AddCommand implements Command{

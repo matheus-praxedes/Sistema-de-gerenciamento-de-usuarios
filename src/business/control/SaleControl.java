@@ -1,7 +1,7 @@
 package business.control;
 
 import business.model.Product;
-import business.model.Sale;
+import business.model.memento.Sale;
 import infra.Persistence;
 import java.util.List;
 import java.util.Map;
