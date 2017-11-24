@@ -16,6 +16,6 @@ public class Date implements Serializable{
 
     @Override
     public String toString(){
-        return day + "/" + month + "/" + year;
+        return String.format("%2s/%2s/%2s" , day, month, year);
     } 
 }

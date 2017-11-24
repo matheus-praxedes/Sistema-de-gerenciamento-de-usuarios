@@ -2,7 +2,9 @@ package business.model;
 
 import java.io.Serializable;
 
-public abstract class Form implements Serializable{
+public abstract class Report implements Serializable{
+
+    String content;
 
     public final void generate(){
 
@@ -14,7 +16,7 @@ public abstract class Form implements Serializable{
         output += "---------------------------------";
         output += generateEnd();
 
-        action(output);
+        content = output;
         
     }
 
@@ -24,5 +26,7 @@ public abstract class Form implements Serializable{
 
     public abstract String generateEnd();
 
-    public abstract void action(String content);
+    public String getContent(){
+        return content;
+    }
 }

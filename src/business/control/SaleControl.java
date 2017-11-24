@@ -10,10 +10,9 @@ import util.InfraException;
 
 public class SaleControl {
     
-    private Map<String,Sale> sales;
+    private Map<String, Sale> sales;
     private Persistence persistence;
     private ProductControl product_control;
-    private int id_count = 0;
     
     public SaleControl(ProductControl product_control) throws ControlException{
        
@@ -25,11 +24,6 @@ public class SaleControl {
             throw new ControlException("Can not access sale data");
         }
         
-        for(String s: sales.keySet()){
-          
-            id_count = id_count > Integer.parseInt(s)? id_count: Integer.parseInt(s); 
-        }
-        id_count++;
     }
 
     public void addSale(String id , float discount, List<String> productNames) throws ControlException{
@@ -50,7 +44,7 @@ public class SaleControl {
             
         }
        
-       sales.put(id_count++ +"",sale);
+       sales.put(id +"",sale);
         
         try {
             persistence.save(sales);
@@ -106,7 +100,6 @@ public class SaleControl {
         } catch (InfraException ex) {
             throw new ControlException("Can not save sale data");
         }
-        id_count = 1;
     }
     
     public int countOrders(){

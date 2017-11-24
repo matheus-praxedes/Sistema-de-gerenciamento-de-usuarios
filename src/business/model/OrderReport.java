@@ -1,17 +1,18 @@
 package business.model;
 
+import business.control.OrderControl;;
 import java.util.List;
 
-public class OrderForm extends Form{
+public class OrderReport extends Report{
 
-    private List<Order> ordersList;
+    private OrderControl ordersList;
     float totalOrders = 0.0f;
 
-    public OrderForm(List<Order> orders){
+    public OrderReport(OrderControl orders){
         ordersList = orders;
 
-        for( Order order : ordersList)
-            totalOrders += order.getValue();
+        // for( Order order : ordersList)
+        //     totalOrders += order.getValue();
     }
 
     @Override
@@ -24,8 +25,8 @@ public class OrderForm extends Form{
 
         String result = "";
 
-        for( Order order : ordersList)
-            result += order.getDate() + " ______ " + order.getValue();
+        // for( Order order : ordersList)
+        //     result += order.getDate() + " ______ " + order.getValue();
 
         return result;
 
@@ -47,8 +48,8 @@ public class OrderForm extends Form{
         return result;
     }
 
-    @Override
-    public void action(String content){
-        System.out.println(content);
-    }
+    // @Override
+    // public void action(){
+    //     System.out.println(content);
+    // }
 }

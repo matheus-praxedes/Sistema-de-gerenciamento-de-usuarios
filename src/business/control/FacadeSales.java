@@ -1,20 +1,23 @@
 package business.control;
 
 import util.ControlException;
+import business.model.memento.Sale;
 
 public class FacadeSales {
 
     Caretaker zel;
     SaleControl saleControl;
+    ProductControl product;
 
-    public FacadeSales(ProductControl product) throws ControlException {
+    public FacadeSales() throws ControlException {
         zel = new Caretaker();
+        product = new ProductControl();
         saleControl = new SaleControl(product);
     }
     
-    public void service(Command cmd) throws ControlException{
-        cmd.execute();
+    public Sale service(Command cmd) throws ControlException{
         zel.putCommand(cmd);
+        return cmd.execute();
     }
 
     public void undo() throws ControlException{
@@ -23,6 +26,10 @@ public class FacadeSales {
 
     public void redo() throws ControlException{
         zel.getNextCommand().execute();
+    }
+
+    public SaleControl getSaleControl(){
+        return saleControl;
     }
 
 }

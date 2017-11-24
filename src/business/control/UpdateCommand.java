@@ -25,7 +25,16 @@ public class UpdateCommand implements Command{
 
     public Sale execute() throws ControlException{
         mem = sc.list(id).createMemento();
-        sc.addSale(id, discount, productNames);
+
+        List<String> new_products = new ArrayList<>();;
+        for( Product p : sc.list(id).getProducts() )
+            new_products.add(p.getName());
+
+        new_products.addAll(productNames);
+
+        if(discount == 0.0f) discount = sc.list(id).getDiscount();
+
+        sc.addSale(id, discount, new_products);
         return sc.list(id);
     }
 

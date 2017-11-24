@@ -31,6 +31,6 @@ public class Product implements Serializable{
     @Override
     public String toString() {
 
-        return String.format("%-20sR$ %-7.2f" , name, price );
+        return String.format("%-20sR$ %-7.2f", name, price );
     }
 }

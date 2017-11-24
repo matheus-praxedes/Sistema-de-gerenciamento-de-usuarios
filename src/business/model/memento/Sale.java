@@ -80,10 +80,13 @@ public class Sale implements Serializable{
         String result = "";
          
         for(Product p : products){
-            result += p.toString() + " " +  p.getPrice();
+            result += p.toString() + "\n";
         }
+
+        result += "---------------------------\n";
+        result += String.format("%-20sR$ %-7.2f\n%-22s%3.0f %%\n%-20sR$ %-7.2f", "Total", getNormalPrice(), "Discount", discount*100, "Total - discount", getSalePrice() );
        
-        return result + getNormalPrice() + "\n" + discount + "\n" + getSalePrice();
+        return result;
     }
 
     public void setMemento(SaleMemento mem){

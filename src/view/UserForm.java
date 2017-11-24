@@ -2,9 +2,16 @@ package view;
 
 import business.control.AccessControl;
 import business.control.Facade;
+import business.control.FacadeSales;
 import business.control.ProductControl;
 import business.control.UserControl;
+import business.control.Command;
+import business.control.AddCommand;
+import business.control.UpdateCommand;
+import business.control.SearchCommand;
 import business.model.Order;
+import business.model.memento.Sale;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +24,7 @@ import util.UserException;
 public class UserForm {
     
     private Facade  facade;
+    private FacadeSales  facade_sales;
     private Scanner input;
     
     
@@ -27,6 +35,7 @@ public class UserForm {
         
         try {
             facade = new Facade();
+            facade_sales = new FacadeSales();
         } catch (ControlException ex) {
             System.out.println("Internal error. Unable to load data into the system. Search for an administrator for support");
             System.exit(0);
@@ -42,16 +51,28 @@ public class UserForm {
        
             System.out.println("\nChoose one of the options below: \n" +
                           " 1  - Login\n" +
-                          " 2  - Add user\n" +
-                          " 3  - Delete user\n" + 
-                          " 4  - List user\n" +
-                          " 5  - List all users\n" +
-                          " 6  - Add product\n" +
-                          " 7  - Delete product\n" + 
-                          " 8  - List product\n" +
-                          " 9  - Show menu\n" +
-                          " 10 - Make order\n" +
-                          " 11 - Logout\n" +
+                          " 2  - Logout\n" +
+                          " ------------------------\n" +
+                          " 10 - Register user\n" +
+                          " 12 - Delete user\n" + 
+                          " 13 - List user\n" +
+                          " 14 - List all users\n" +
+                          " ------------------------\n" +
+                          " 20 - Register product\n" +
+                          " 21 - Delete product\n" + 
+                          " 22 - List product\n" +
+                          " 23 - Show menu\n" +
+                          " ------------------------\n" +
+                          " 30 - Make order\n" +
+                          " ------------------------\n" +
+                          " 40 - Add sale\n" +
+                          " 41 - Change sale\n" +
+                          " 42 - Search for sale\n" +
+                          " 43 - Undo last sale action\n" +
+                          " 44 - Redo last sale action\n" +
+                          " ------------------------\n" +
+                          " 50 - Show orders report\n" +
+                          " ------------------------\n" +
                           " 0  - Exit system");
        
             int choice = input.nextInt();
@@ -68,40 +89,57 @@ public class UserForm {
                     loginMenu();
                     break;
                 case 2:
-                    addUserMenu();
-                    break;
-                case 3:
-                    deleteUserMenu();
-                    break;
-                case 4:
-                    listUserMenu();
-                    break;
-                case 5:
-                    listAllUserMenu();
-                    break;
-                case 6:
-                    addProductMenu();
-                    break;
-                case 7:
-                    deleteProductMenu();
-                    break;
-                case 8:
-                    listProductMenu();
-                    break;
-                case 9:
-                    listAllProductMenu();
-                    break;
-                case 10:
-                    makeOrderMenu();
-                    break;
-                case 11:
                     logoutMenu();
                     break;
-
+                case 10:
+                    addUserMenu();
+                    break;
+                case 11:
+                    deleteUserMenu();
+                    break;
+                case 12:
+                    listUserMenu();
+                    break;
+                case 13:
+                    listAllUserMenu();
+                    break;
+                case 20:
+                    addProductMenu();
+                    break;
+                case 21:
+                    deleteProductMenu();
+                    break;
+                case 22:
+                    listProductMenu();
+                    break;
+                case 23:
+                    listAllProductMenu();
+                    break;
+                case 30:
+                    makeOrderMenu();
+                    break;
+                case 40:
+                    registerSaleMenu();
+                    break;
+                case 41:
+                    updateSaleMenu();
+                    break;
+                case 42:
+                    searchSaleMenu();
+                    break;
+                case 43:
+                    undoSaleMenu();
+                    break;
+                case 44:
+                    redoSaleMenu();
+                    break;
+                case 50:
+                    showOrderReportMenu();
+                    break;
 
             }
         }
-        System.out.println("Thank you for using the system");
+        System.out.println("Thank you for using the system!");
     }
 
     private void loginMenu(){
@@ -298,12 +336,130 @@ public class UserForm {
             System.out.println("\nInvalid order. Try again.");
         }
         
-        System.out.print("Order made successfully");
+        System.out.print("Order made successfully!\n");
         
     }
     
     private void logoutMenu(){
         System.out.println("Successfully logged out!");
         facade.logoutSystem();
+    }
+
+    private void registerSaleMenu(){
+        
+        List<String> sale_products = new ArrayList<>();
+            
+        System.out.print("Enter sale name: ");
+        String name = input.nextLine();
+
+        while(true){
+            
+            System.out.print("Enter product name or type '0' to exit: ");
+            String product_name = input.nextLine();
+
+            if(!product_name.equals("0")){ 
+               
+            }
+            else if(sale_products.size() > 0){
+                break;
+            }
+            else{
+               return;
+            }
+            
+            sale_products.add(product_name);   
+        }
+
+        System.out.print("Enter discount(%): ");
+        float discount = input.nextFloat();
+        input.nextLine();
+        System.out.println();
+        
+        try{
+            Command cmd = new AddCommand(facade_sales.getSaleControl(), name, discount/100.0f, sale_products);
+            facade_sales.service(cmd);      
+            System.out.print("Sale registered successfully!\n");
+        }catch (ControlException ex) {
+            System.out.println("\nInvalid sale. Try again.");
+        }
+    }
+
+    private void searchSaleMenu(){
+        
+        Sale sale;
+
+        System.out.print("Enter sale name: ");
+        String name = input.nextLine();
+        System.out.println();
+
+        try{
+            Command cmd = new SearchCommand(facade_sales.getSaleControl(), name);
+            sale = facade_sales.service(cmd);
+
+            System.out.println(String.format("%-20s%-7s" , "Name", "Price" ));
+            System.out.println("---------------------------");
+            System.out.println(sale + "\n");
+        }
+        catch(ControlException e){
+            System.out.println( e.getMessage());
+        }
+    }
+
+    private void updateSaleMenu(){
+        
+        List<String> sale_products = new ArrayList<>();
+            
+        System.out.print("Enter sale name: ");
+        String name = input.nextLine();
+
+        while(true){
+            
+            System.out.print("Enter new products name or type '0' to exit: ");
+            String product_name = input.nextLine();
+
+            if(product_name.equals("0")){ 
+               break;
+            }
+            
+            sale_products.add(product_name);   
+        }
+
+        System.out.print("Enter new discount(%): ");
+        float discount = input.nextFloat();
+        input.nextLine();
+        System.out.println();
+        
+        try{
+            Command cmd = new UpdateCommand(facade_sales.getSaleControl(), name, discount/100.0f, sale_products);
+            facade_sales.service(cmd);      
+            System.out.print("Sale modified successfully!\n");
+        }catch (ControlException ex) {
+            System.out.println("\nInvalid sale. Try again.");
+        }
+    }
+
+    private void undoSaleMenu(){
+        
+        try{
+            facade_sales.undo();      
+            System.out.print("Last actions was undo successfully!\n");
+        }catch (ControlException ex) {
+            System.out.println("\nCan't retry action.");
+        }
+    }
+
+    private void redoSaleMenu(){
+        
+        try{
+            facade_sales.redo();      
+            System.out.print("Last actions was undo successfully!\n");
+        }catch (ControlException ex) {
+            System.out.println("\nCan't retry action.");
+        }
+    }
+
+    private void showOrderReportMenu(){
+
+        
     }
  }

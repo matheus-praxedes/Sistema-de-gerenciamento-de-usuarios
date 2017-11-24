@@ -14,8 +14,17 @@ public class Caretaker{
     }
 
     public void putCommand(Command cmd){
+
+        if(currentCommand < commands.size()-1)
+            commands.subList(currentCommand+1, commands.size()).clear();
         commands.add(cmd);
-        currentCommand++;
+
+        if(commands.size() > 20){
+            commands.remove(0);
+        }
+        else{
+            currentCommand++;
+        }
     }
 
     public Command getPrevCommand(){
