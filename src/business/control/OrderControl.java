@@ -3,11 +3,13 @@ package business.control;
 import business.model.Date;
 import business.model.Order;
 import business.model.User;
+
 import infra.EmailSystem;
 import infra.NotificationSystem;
 import infra.Persistence;
 import infra.SmsSystem;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import util.ControlException;
 import util.InfraException;
@@ -86,18 +88,18 @@ public class OrderControl{
         
     }
 
-    public String listAll() throws ControlException{
+    public List<Order> listAll() throws ControlException{
         
-        String output = "";
+        List<Order> output = new ArrayList<>();
         
         if(orders.isEmpty()){
-            
             throw new ControlException("There are no registered orders");
         }
-        for(String s: orders.keySet()){
-          
-            output = output + orders.get(s) + "\n";
+        
+        for(String s : orders.keySet()){  
+            output.add(orders.get(s));
         }
+
         return output;
     }
 

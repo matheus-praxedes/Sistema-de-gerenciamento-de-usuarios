@@ -4,6 +4,7 @@ import business.model.Product;
 import business.model.memento.Sale;
 import infra.Persistence;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import util.ControlException;
 import util.InfraException;
@@ -54,18 +55,18 @@ public class SaleControl {
         
     }
 
-    public String listAll() throws ControlException{
+    public List<Sale> listAll() throws ControlException{
         
-        String output = "";
+        List<Sale> output = new ArrayList<>();
         
         if(sales.isEmpty()){
-            
             throw new ControlException("There are no registered sales");
         }
-        for(String s: sales.keySet()){
-          
-            output = output + sales.get(s) + "\n";
+        
+        for(String s : sales.keySet()){  
+            output.add(sales.get(s));
         }
+
         return output;
     }
 
@@ -102,7 +103,7 @@ public class SaleControl {
         }
     }
     
-    public int countOrders(){
+    public int countSales(){
   
         return sales.size(); 
     } 

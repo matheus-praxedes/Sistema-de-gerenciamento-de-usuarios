@@ -10,6 +10,8 @@ import business.control.AddCommand;
 import business.control.UpdateCommand;
 import business.control.SearchCommand;
 import business.model.Order;
+import business.model.User;
+import business.model.Product;
 import business.model.memento.Sale;
 
 import java.util.ArrayList;
@@ -230,10 +232,12 @@ public class UserForm {
     private void listAllUserMenu(){
     
         try{
-            facade.listAllUsers();
+            List<User> all_users = facade.listAllUsers();
             System.out.println(String.format("%-20s%-20s%-30s%-13s" , "Login", "Password", "Email", "Phone" ));
             System.out.println("-----------------------------------------------------------------------------------");
-            System.out.println(facade.listAllUsers());
+            
+            for(User u : all_users)
+                System.out.println(u + "\n");
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -296,10 +300,12 @@ public class UserForm {
         System.out.println();
     
         try{
-            facade.listAllProducts();
+            List<Product> all_products = facade.listAllProducts();
             System.out.println(String.format("%-20s%-7s" , "Name", "Price" ));
             System.out.println("---------------------------");
-            System.out.println(facade.listAllProducts());
+            
+            for(Product p : all_products)
+                System.out.println(p + "\n");
         }
         catch(ControlException e){
             System.out.println(e.getMessage());

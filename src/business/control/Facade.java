@@ -45,9 +45,11 @@ public class Facade {
        return user.list(login);
     }
     
-    public String listAllUsers() throws UserException{
+    public List<User> listAllUsers() throws UserException{
         return user.listAll();
     }
+
+    // --------------------------------------------------------------------------------------
     
     public void addProduct(String name, float price) throws ControlException{
         product.addProduct(name, price);
@@ -61,9 +63,11 @@ public class Facade {
         return product.list(name);
     }
     
-    public String listAllProducts() throws ControlException{
+    public List<Product> listAllProducts() throws ControlException{
         return product.listAll();
     }
+
+    // ---------------------------------------------------------------------------------------
     
     public void newOrder(List<String> orders) throws ControlException{
     
@@ -78,6 +82,7 @@ public class Facade {
         
         order.makeOrder(access.getUser(), new Date(day,month,year), orders);
     }
+    
     public void deleteOrder(String name) throws ControlException{
         order.delete(name);
     }
@@ -86,9 +91,12 @@ public class Facade {
         return order.list(name);
     }
     
-    public String listAllOrders() throws ControlException{
+    public List<Order> listAllOrders() throws ControlException{
         return order.listAll();
     }
+
+    // ---------------------------------------------------------------------------------
+
     public void loginSystem(String login, String password) throws UserException{
         access.login(login, password);
     }

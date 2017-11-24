@@ -2,6 +2,8 @@ package business.control;
 
 import business.model.User;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import util.ControlException;
 import util.InfraException;
 import util.LoginException;
@@ -92,16 +94,16 @@ public class UserControl {
         }
     }
     
-    public String listAll() throws UserException{
+    public List<User> listAll() throws UserException{
         
-        String output = "";
+        List<User> output = new ArrayList<>();
         
         if(users.isEmpty()){
             throw new UserException("There are no registered users");
         }
         
         for(String s : users.keySet()){  
-            output += users.get(s) + "\n";
+            output.add(users.get(s));
         }
 
         return output;

@@ -2,6 +2,8 @@ package business.control;
 
 import business.model.Product;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import util.ControlException;
 import util.InfraException;
 import infra.Persistence;
@@ -38,16 +40,16 @@ public class ProductControl {
        
     }
 
-    public String listAll() throws ControlException{
+    public List<Product> listAll() throws ControlException{
         
-        String output = "";
+        List<Product> output = new ArrayList<>();
         
         if(products.isEmpty()){
             throw new ControlException("There are no registered products");
         }
-
+        
         for(String s : products.keySet()){  
-            output += products.get(s) + "\n";
+            output.add(products.get(s));
         }
 
         return output;
