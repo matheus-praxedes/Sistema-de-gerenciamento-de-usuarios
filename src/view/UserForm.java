@@ -74,6 +74,8 @@ public class UserForm {
                           " 44 - Redo last sale action\n" +
                           " ------------------------\n" +
                           " 50 - Show orders report\n" +
+                          " 51 - Show products report\n" +
+                          " 52 - Show clients report\n" +
                           " ------------------------\n" +
                           " 0  - Exit system");
        
@@ -137,6 +139,12 @@ public class UserForm {
                     break;
                 case 50:
                     showOrderReportMenu();
+                    break;
+                case 51:
+                    showProductReportMenu();
+                    break;
+                case 52:
+                    showClientReportMenu();
                     break;
 
             }
@@ -467,6 +475,24 @@ public class UserForm {
         
         try{
             System.out.println(facade.getOrderReport());
+        }catch (ControlException ex) {
+            System.out.println("\nCan't generate report.");
+        }
+    }
+
+    private void showProductReportMenu(){
+        
+        try{
+            System.out.println(facade.getProductReport());
+        }catch (ControlException ex) {
+            System.out.println("\nCan't generate report.");
+        }
+    }
+
+    private void showClientReportMenu(){
+        
+        try{
+            System.out.println(facade.getClientReport());
         }catch (ControlException ex) {
             System.out.println("\nCan't generate report.");
         }

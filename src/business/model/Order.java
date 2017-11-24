@@ -35,6 +35,10 @@ public class Order implements Serializable{
             products.remove(product);
     }
 
+    public Map<Product, Integer> getProductList(){
+        return products;
+    }
+
     public Date getDate(){
         return date;
     }

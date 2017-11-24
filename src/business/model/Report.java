@@ -14,9 +14,9 @@ public abstract class Report implements Serializable{
         output += "\n\n##################################################\n\n";
 
         output += generateHeader();
-        output += "\n---------------------------------\n\n";
+        output += "\n----------------------------------------------------\n\n";
         output += generateData();
-        output += "\n---------------------------------\n\n";
+        output += "\n----------------------------------------------------\n\n";
         output += generateEnd();
 
         output += "\n\n##################################################\n\n";

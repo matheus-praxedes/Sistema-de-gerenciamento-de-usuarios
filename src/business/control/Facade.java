@@ -2,7 +2,10 @@ package business.control;
 
 import business.model.Date;
 import business.model.Order;
+import business.model.Report;
 import business.model.OrderReport;
+import business.model.ProductReport;
+import business.model.ClientReport;
 import business.model.Product;
 import business.model.User;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
@@ -114,7 +117,23 @@ public class Facade {
 
     public String getOrderReport() throws ControlException{
         
-        OrderReport report = new OrderReport(order);
+        Report report = new OrderReport(order);
+
+        report.generate();
+        return report.getContent();
+    }
+
+    public String getClientReport() throws ControlException{
+        
+        Report report = new ClientReport(order);
+
+        report.generate();
+        return report.getContent();
+    }
+
+    public String getProductReport() throws ControlException{
+        
+        Report report = new ProductReport(order);
 
         report.generate();
         return report.getContent();
