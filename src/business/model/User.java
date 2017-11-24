@@ -63,6 +63,6 @@ public class User implements Serializable{
     @Override
     public String toString() {
         
-        return login + "\t" + password + "\t" + email + "\t" + phone_number;
+        return String.format("%-20s%-20s%-30s%-13s" , login, password, (email == null ? "-" : email), (phone_number == null ? "-" : phone_number) );
     }
 }

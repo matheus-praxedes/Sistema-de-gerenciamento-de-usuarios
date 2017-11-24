@@ -15,26 +15,40 @@ public class OrderForm extends Form{
     }
 
     @Override
-    public void printHeader(){
-        System.out.println("Relatório de Vendas no Período:");
+    public String generateHeader(){
+        return "Relatório de Vendas no Período:";
     }
 
     @Override
-    public void printData(){
+    public String generateData(){
+
+        String result = "";
 
         for( Order order : ordersList)
-            System.out.println(order.getDate() + " ______ " + order.getValue());
+            result += order.getDate() + " ______ " + order.getValue();
+
+        return result;
 
     }
 
     @Override
-    public void printEnd(){
-        System.out.print("O relatório conclui que ");
+    public String generateEnd(){
+
+        String result = "";
+
+        result += "O relatório conclui que ";
         if(totalOrders > 5000.0f)
-            System.out.println("houve lucro significativo no período");
+            result += "houve lucro significativo no período";
         else if(totalOrders > 0.0f)
-            System.out.println("houve pouco lucro no período");
+            result += "houve pouco lucro no período";
         else
-            System.out.println("não houve lucro no período");
+            result += "não houve lucro no período";
+
+        return result;
+    }
+
+    @Override
+    public void action(String content){
+        System.out.println(content);
     }
 }

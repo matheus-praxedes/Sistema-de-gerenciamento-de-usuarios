@@ -61,19 +61,29 @@ public class UserControl {
     throws LoginException,PasswordException,ControlException{
     
         addUser(login,password);
-        
-        String[] pn = phone_number.split("-");
-        String[] e  = email.split("@");
-                
-        if(pn.length != 2 || pn[0].length() != 5 || pn[1].length() != 4){
-            throw new ControlException("Ill-formed phone number. Ex: 90000-0000");
+
+        if(!email.isEmpty()){
+
+            String[] e  = email.split("@");
+                    
+            if(e.length != 2 || e[0].isEmpty() || e[1].isEmpty()){
+                throw new ControlException("Email error");
+            }
+            
+            users.get(login).setEmail(email);
+
         }
-        else if(e.length != 2 || e[0].isEmpty() || e[1].isEmpty()){
-            throw new ControlException("Email error");
-        }
+
+        if(!phone_number.isEmpty()){
         
-        users.get(login).setEmail(email);
-        users.get(login).setPhoneNumber(phone_number);
+            String[] pn = phone_number.split("-");
+                    
+            if(pn.length != 2 || pn[0].length() != 5 || pn[1].length() != 4){
+                throw new ControlException("Ill-formed phone number. Ex: 90000-0000");
+            }
+            
+            users.get(login).setPhoneNumber(phone_number);
+        }
         
         try {
             persistence.save(users);
@@ -87,13 +97,13 @@ public class UserControl {
         String output = "";
         
         if(users.isEmpty()){
-            
             throw new UserException("There are no registered users");
         }
-        for(String s: users.keySet()){
-          
-            output = output + users.get(s) + "\n";
+        
+        for(String s : users.keySet()){  
+            output += users.get(s) + "\n";
         }
+
         return output;
     }
 

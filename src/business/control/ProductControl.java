@@ -43,13 +43,13 @@ public class ProductControl {
         String output = "";
         
         if(products.isEmpty()){
-            
             throw new ControlException("There are no registered products");
         }
-        for(String s: products.keySet()){
-          
-            output = output + products.get(s) + "\n";
+
+        for(String s : products.keySet()){  
+            output += products.get(s) + "\n";
         }
+
         return output;
     }
 

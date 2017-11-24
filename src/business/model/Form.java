@@ -4,17 +4,25 @@ import java.io.Serializable;
 
 public abstract class Form implements Serializable{
 
-    public final void print(){
-        printHeader();
-        System.out.println("---------------------------------");
-        printData();
-        System.out.println("---------------------------------");
-        printEnd();
+    public final void generate(){
+
+        String output = "";
+
+        output += generateHeader();
+        output += "---------------------------------";
+        output += generateData();
+        output += "---------------------------------";
+        output += generateEnd();
+
+        action(output);
+        
     }
 
-    public abstract void printHeader();
+    public abstract String generateHeader();
 
-    public abstract void printData();
+    public abstract String generateData();
 
-    public abstract void printEnd();
+    public abstract String generateEnd();
+
+    public abstract void action(String content);
 }

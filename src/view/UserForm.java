@@ -40,7 +40,7 @@ public class UserForm {
         
         while(true){
        
-            System.out.println("\nChoose one of the options below:\n" +
+            System.out.println("\nChoose one of the options below: \n" +
                           " 1  - Login\n" +
                           " 2  - Add user\n" +
                           " 3  - Delete user\n" + 
@@ -56,6 +56,8 @@ public class UserForm {
        
             int choice = input.nextInt();
             input.nextLine();
+            System.out.println();
+           
             
             if(choice == 0){
                 break;
@@ -104,15 +106,17 @@ public class UserForm {
 
     private void loginMenu(){
     
-        System.out.print("Enter login:");
+        System.out.print("Enter login: ");
         String login = input.next();
 
-        System.out.print("Enter password:");
+        System.out.print("Enter password: ");
         String password = input.next();
+
+        System.out.println();
         
         try{
             facade.loginSystem(login, password);
-            System.out.println("Successfully logged!");
+            System.out.println("Successfully logged as " + login + "!");
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -123,20 +127,20 @@ public class UserForm {
         
         while(true){
             
-            System.out.print("Enter your login:");
+            System.out.print("Enter your login: ");
             String login = input.next();
 
-            System.out.print("Enter your password:");
+            System.out.print("Enter your password: ");
             String password = input.next();
             
-            System.out.print("Enter your email:");
+            System.out.print("Enter your email: ");
             String email = input.next();
             
-            System.out.print("Enter your phone number:");
+            System.out.print("Enter your phone number: ");
             String phone = input.next();
 
             try{
-                facade.addUser(login, password, email, phone);
+                facade.addUser(login, password, (email.equals("0") ? "" : email), (phone.equals("0") ? "" : phone));
                 break;
             }
             catch(LoginException | PasswordException e){
@@ -153,12 +157,13 @@ public class UserForm {
 
     private void deleteUserMenu(){
     
-        System.out.print("Enter login to delete:");
+        System.out.print("Enter login to delete: ");
         String login = input.next();
+        System.out.println();
 
         try{
             facade.deleteUser(login);
-            System.out.print("Deleted user\n");
+            System.out.print(login + " deleted successfully!\n");
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -169,10 +174,14 @@ public class UserForm {
 
     private void listUserMenu(){
     
-        System.out.print("Enter login to display:");
+        System.out.print("Enter login to display: ");
         String login = input.next();
+        System.out.println();
 
         try{
+            facade.listUser(login);
+            System.out.println(String.format("%-20s%-20s%-30s%-13s" , "Login", "Password", "Email", "Phone" ));
+            System.out.println("-----------------------------------------------------------------------------------");
             System.out.println(facade.listUser(login) + "\n");
         }
         catch(UserException e){
@@ -183,6 +192,9 @@ public class UserForm {
     private void listAllUserMenu(){
     
         try{
+            facade.listAllUsers();
+            System.out.println(String.format("%-20s%-20s%-30s%-13s" , "Login", "Password", "Email", "Phone" ));
+            System.out.println("-----------------------------------------------------------------------------------");
             System.out.println(facade.listAllUsers());
         }
         catch(UserException e){
@@ -194,10 +206,10 @@ public class UserForm {
         
         while(true){
             
-            System.out.print("Enter product name:");
+            System.out.print("Enter product name: ");
             String name = input.nextLine();
 
-            System.out.print("Enter product price:");
+            System.out.print("Enter product price: R$ ");
             float price = input.nextFloat();
             input.nextLine();
 
@@ -212,23 +224,28 @@ public class UserForm {
 
     private void deleteProductMenu(){
     
-        System.out.print("Enter product name to delete:");
+        System.out.print("Enter product name to delete: ");
         String name = input.nextLine();
+        System.out.println();
 
         try{
             facade.deleteProduct(name);
             System.out.print("Deleted product\n");
         }catch (ControlException ex) {
-            System.out.println("Internal error. Unable to save product data into the system. Search for an administrator for support");
+            System.out.println( ex.getMessage());
         }
     }
 
     private void listProductMenu(){
     
-        System.out.print("Enter product name:");
+        System.out.print("Enter product name: ");
         String name = input.nextLine();
+        System.out.println();
 
         try{
+            facade.listProduct(name);
+            System.out.println(String.format("%-20s%-7s" , "Name", "Price" ));
+            System.out.println("---------------------------");
             System.out.println(facade.listProduct(name) + "\n");
         }
         catch(ControlException e){
@@ -237,8 +254,13 @@ public class UserForm {
     }
 
     private void listAllProductMenu(){
+
+        System.out.println();
     
         try{
+            facade.listAllProducts();
+            System.out.println(String.format("%-20s%-7s" , "Name", "Price" ));
+            System.out.println("---------------------------");
             System.out.println(facade.listAllProducts());
         }
         catch(ControlException e){
@@ -252,7 +274,7 @@ public class UserForm {
             
         while(true){
             
-            System.out.print("Enter product name or type '0' to exit:");
+            System.out.print("Enter product name or type '0' to exit: ");
             String name = input.nextLine();
 
 
@@ -281,7 +303,7 @@ public class UserForm {
     }
     
     private void logoutMenu(){
-        
+        System.out.println("Successfully logged out!");
         facade.logoutSystem();
     }
  }
