@@ -1,7 +1,7 @@
 package business.control;
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 import infra.Persistence;
 
 public abstract class PersistenceFactory{
@@ -11,7 +11,7 @@ public abstract class PersistenceFactory{
     public static Persistence getPersistence(String type){
 
         if(factoryList == null){
-            factoryList = new HashMap<String, PersistenceFactory>();
+            factoryList = new TreeMap<String, PersistenceFactory>();
             factoryList.put("fileUser", FilePersistenceUserFactory.getInstance() );
             factoryList.put("fileProduct", FilePersistenceProductFactory.getInstance() );
             factoryList.put("fileOrder", FilePersistenceOrderFactory.getInstance() );

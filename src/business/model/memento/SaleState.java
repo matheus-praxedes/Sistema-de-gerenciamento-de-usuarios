@@ -1,7 +1,7 @@
 package business.model.memento;
 
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
 import business.model.Product;
 
 public class SaleState{
@@ -14,7 +14,7 @@ public class SaleState{
 
         this.id = new String(id);
         this.discount = discount;
-        this.products = new HashSet<>();
+        this.products = new TreeSet<>();
         this.products.addAll(prod_name);
 
     }

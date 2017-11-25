@@ -2,7 +2,7 @@ package business.model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable{
+public class Product implements Serializable, Comparable{
 
     private String name;
     private float price;
@@ -32,5 +32,31 @@ public class Product implements Serializable{
     public String toString() {
 
         return String.format("%-20sR$ %-7.2f", name, price );
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) {
+            return false;
+        }
+        if (!Product.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Product other = (Product) obj;
+
+        return other.name.equals(name);
+    }
+
+    @Override
+    public int compareTo(Object obj){
+        if (obj == null) {
+            return -1;
+        }
+        if (!Product.class.isAssignableFrom(obj.getClass())) {
+            return -1;
+        }
+        final Product other = (Product) obj;
+
+        return other.name.compareToIgnoreCase(name);
     }
 }

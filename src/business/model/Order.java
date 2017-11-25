@@ -1,7 +1,7 @@
 package business.model;
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.io.Serializable;
 
 public class Order implements Serializable{
@@ -13,7 +13,7 @@ public class Order implements Serializable{
     public Order(User user, Date date){
         this.user = user;
         this.date = date;
-        products = new HashMap<Product, Integer>();
+        products = new TreeMap<Product, Integer>();
     }
 
     public Order() {

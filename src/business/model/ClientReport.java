@@ -59,8 +59,7 @@ public class ClientReport extends Report{
 
         String result = "";
 
-        result += "The report concludes that the most profitable \ncustomer of the period was:\n";
-        
+        result += "The report concludes that the most profitable \ncustomer of the period was:\n";   
         result += String.format("%-24sR$ %.2f", bestClient.getLogin(), user_spendings.get(bestClient));
 
         return result;

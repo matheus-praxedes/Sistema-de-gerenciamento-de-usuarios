@@ -4,7 +4,7 @@ import business.control.OrderControl;
 import util.ControlException;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ProductReport extends Report{
 
@@ -24,7 +24,7 @@ public class ProductReport extends Report{
     @Override
     public String generateData() throws ControlException{
 
-        product_list = new HashMap<>();
+        product_list = new TreeMap<>();
 
         String result = "";
         float total_orders = 0.0f;

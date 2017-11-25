@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map;
 import util.InfraException;
 
@@ -37,7 +37,7 @@ public class FilePersistence <T> implements Persistence <T>{
     }
     public Map<String,T> load() throws InfraException{
     
-        Map<String,T> objects = new HashMap<String,T>();
+        Map<String,T> objects = new TreeMap<String,T>();
         File file = new File(fileName);
         ObjectInputStream input = null;
         InputStream in = null;

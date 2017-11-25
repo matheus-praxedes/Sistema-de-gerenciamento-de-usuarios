@@ -190,18 +190,22 @@ public class UserForm {
             System.out.print("Enter your phone number: ");
             String phone = input.next();
 
+            System.out.println();
+
             try{
                 facade.addUser(login, password, (email.equals("0") ? "" : email), (phone.equals("0") ? "" : phone));
+                System.out.println("User successfully registered!");
                 break;
             }
             catch(LoginException | PasswordException e){
 
                 System.out.println( e.getMessage());
                 System.out.println("Try again");
+                System.out.println();
                 
             } catch (ControlException ex) {
                 System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
-                ex.printStackTrace(System.out);
+                // ex.printStackTrace(System.out);
             }
         }
     }

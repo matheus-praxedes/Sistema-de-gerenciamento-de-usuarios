@@ -28,9 +28,12 @@ public class UserControl {
     }
 
     public void addUser(String login, String password) throws LoginException,
-    PasswordException,ControlException{
-        
-        if(login.length() > 12){
+    PasswordException, ControlException{
+
+        if(users.containsKey(login)){
+            throw new LoginException("Login already in use");
+        }
+        else if(login.length() > 12){
             throw new LoginException("Login exceeds maximum length");
         }
         else if(login.isEmpty()){
