@@ -1,5 +1,9 @@
 package business.control;
 
+import business.model.Product;
+import business.model.User;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +60,8 @@ public class ProductControlTest {
     @Test
     public void testListAll() throws ControlException{
         
+        List<Product> list = new ArrayList<>();
+        
         try {
             instance.delete("banana");
             fail("List is empty");
@@ -65,10 +71,11 @@ public class ProductControlTest {
         
         instance.addProduct("suco", 1.25f);
         instance.addProduct("agua", 1.35f );
-        String result = "suco\tR$ 1.25\nagua\tR$ 1.35\n";
+        list.add(new Product("suco", 1.25f));
+        list.add(new Product("agua", 1.35f));
         
         try {
-            assertEquals( result,instance.listAll());
+            assertEquals( list.toString(),instance.listAll().toString());
         } catch (ControlException ex) {
             fail("List should not be empty");
         }

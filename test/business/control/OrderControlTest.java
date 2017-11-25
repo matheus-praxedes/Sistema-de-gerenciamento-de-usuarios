@@ -2,6 +2,8 @@ package business.control;
 
 import business.model.User;
 import business.model.Date;
+import business.model.Order;
+import business.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -91,26 +93,35 @@ public class OrderControlTest {
     @Test
     public void testListAll() throws ControlException{
         
-        Date date = new Date(10,11,2017);
-        List<String> list = new ArrayList<>();
+        List<Order> list2 = new ArrayList<>();
         
-        product_control.addProduct("chá", 1.30f);
+        Date date = new Date(10,11,2017);
+        List<String> list1 = new ArrayList<>();
+        
+        //product_control.addProduct("chá", 1.30f);
         product_control.addProduct("batata frita", 1.25f);
          
-        list.add("chá");
-        list.add("batata frita");
+        //list1.add("chá");
+        list1.add("batata frita");
        
         try {
-            instance.makeOrder(access.getUser(), date, list);
+            instance.makeOrder(access.getUser(), date, list1);
             assertTrue(true);
         } catch (ControlException ex) {
             fail("Test fail. Should not throws control exception");    
         }
-
-        String result = "\nmatheus\t12345678\tma@gmail.com\t90015-121410/11/20171\tx\tchá\tR$ 1.31\tx\tbatata frita\tR$ 1.25\n";
-        System.out.println( instance.listAll());
+        
+        Order o = new Order(new User("matheus", "12345678","ma@gmail.com","90015-1214"), new Date(10,11,2017));
+        o.addProduct(new Product("batata frita",1.25f));
+        //o.addProduct(new Product("chá",1.30f));
+        
+        list2.add(o);
+        
+        System.out.println(list2.toString());
+        System.out.println("eu\n\n" +instance.listAll());
+     
         try {
-            assertEquals(result, instance.listAll());
+            assertEquals(list2.toString(), instance.listAll().toString());
         } catch (ControlException ex) {
             fail("List should not be empty");
         }

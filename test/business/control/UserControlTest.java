@@ -1,14 +1,8 @@
-/****************************************************************************
- * Métodos de Projeto de Software - 2017.1
- * Alunos: Francisco Matheus Gonçalves de Souza - 11403723 
- *         Fabricio Leita Soares - 11311014
- *         Matheus Maranhão Rêgo Praxedes - 11403744
- * 
- * Data de entrega: 23 de outubro de 2017
- * Laboratório 3
- ****************************************************************************/
 package business.control;
 
+import business.model.User;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -188,7 +182,9 @@ public class UserControlTest {
    
     @Test
     public void testListAll() throws ControlException, PasswordException, util.LoginException{
-        
+      
+        List<User> list = new ArrayList<>();
+       
         try {
             instance.delete("andre");
             fail("List is empty");
@@ -198,10 +194,11 @@ public class UserControlTest {
         
         instance.addUser("andre", "12345678","and@gmail.com","98881-0215");
         instance.addUser("karla", "123456789","kl@gmail.com","97745-2114");
-        String result = "andre\t12345678\tand@gmail.com\t98881-0215\nkarla\t123456789\tkl@gmail.com\t97745-2114\n";
+        list.add(new User("andre", "12345678","and@gmail.com","98881-0215"));
+        list.add(new User("karla", "123456789","kl@gmail.com","97745-2114"));
         
         try {
-            assertEquals( result,instance.listAll());
+            assertEquals( list.toString(),instance.listAll().toString());
         } catch (UserException ex) {
             fail("List should not be empty");
         }
