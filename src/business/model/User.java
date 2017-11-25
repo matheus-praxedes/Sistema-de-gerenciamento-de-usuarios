@@ -65,4 +65,17 @@ public class User implements Serializable{
         
         return String.format("%-20s%-20s%-30s%-13s" , login, password, (email == null ? "-" : email), (phone_number == null ? "-" : phone_number) );
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) {
+            return false;
+        }
+        if (!User.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final User other = (User) obj;
+
+        return other.login.equals(login);
+    }
 }

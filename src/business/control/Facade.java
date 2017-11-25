@@ -74,6 +74,9 @@ public class Facade {
     // ---------------------------------------------------------------------------------------
     
     public void newOrder(List<String> orders) throws ControlException{
+
+        if(access.getUser() == null)
+            throw new ControlException("Shoud be logged to make order.");
     
         java.util.Date date = new java.util.Date();
         Calendar cal;

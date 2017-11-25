@@ -59,32 +59,16 @@ public class OrderControl{
         } catch (InfraException ex) {
             throw new ControlException("Can not save order data");
         }
-               
-        notification = new SmsSystem();
-        
-        try {
-            notification.setDestiny(order.getUser().getPhoneNumber());
-        } catch (InfraException ex) {
-            throw new ControlException("Can not set the destiny for sms");
+
+        if(order.getUser().getPhoneNumber() != null){
+            notifyUserBySms(order);            
         }
-        try {
-            notification.notifyUser(order.toString());
-        } catch (InfraException ex) {
-            throw new ControlException("Can not notify user by sms");
+        if( order.getUser().getEmail() != null){
+            notifyUserByEmail(order);
         }
-        
-        notification = new EmailSystem();
-        
-        try {
-            notification.setDestiny(order.getUser().getEmail());
-        } catch (InfraException ex) {
-            throw new ControlException("Can not set the destiny for email");
-        }
-        try {
-            notification.notifyUser(order.toString());
-        } catch (InfraException ex) {
-            throw new ControlException("Can not notify user by email");
-        }
+        else if( order.getUser().getPhoneNumber() == null){
+            throw new ControlException("Order was made successfully!\nWarning: Can not notify user by any media!");
+        }  
         
     }
 
@@ -141,5 +125,39 @@ public class OrderControl{
   
         return orders.size(); 
     } 
+
+    private void notifyUserBySms(Order order) throws ControlException{
+
+        notification = new SmsSystem();
+        
+        try {
+            notification.setDestiny(order.getUser().getPhoneNumber());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not set the destiny for sms");
+        }
+        try {
+            notification.notifyUser(order.toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not notify user by sms");
+        }
+
+    }
+
+    private void notifyUserByEmail(Order order) throws ControlException{
+
+        notification = new EmailSystem();
+        
+        try {
+            notification.setDestiny(order.getUser().getEmail());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not set the destiny for email");
+        }
+        try {
+            notification.notifyUser(order.toString());
+        } catch (InfraException ex) {
+            throw new ControlException("Can not notify user by email");
+        }
+
+    }
      
 }

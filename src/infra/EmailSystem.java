@@ -22,7 +22,7 @@ public class EmailSystem implements NotificationSystem {
     @Override
     public void setDestiny(String number) throws InfraException{
 
-        if(number.isEmpty()){
+        if(number == null || number.isEmpty()){
             throw new InfraException("Notification failed.");
         }
 

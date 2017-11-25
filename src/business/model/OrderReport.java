@@ -15,7 +15,7 @@ public class OrderReport extends Report{
 
     @Override
     public String generateHeader(){
-        return "Relatório de Vendas no Período";
+        return "Sales Report for the Period";
     }
 
     @Override
@@ -29,7 +29,7 @@ public class OrderReport extends Report{
         }
 
         result += "################################\n";
-        result += String.format("%-24sR$%5.2f", "Total no período", total_orders);
+        result += String.format("%-24sR$%5.2f", "Total in the period", total_orders);
         result += "\n";
 
         return result;
@@ -40,13 +40,7 @@ public class OrderReport extends Report{
 
         String result = "";
 
-        result += "O relatório conclui que ";
-        if(total_orders > 5000.0f)
-            result += "houve lucro significativo no período";
-        else if(total_orders > 0.0f)
-            result += "houve pouco lucro no período";
-        else
-            result += "não houve lucro no período";
+        result += "The report concludes that there was a profit of " + String.format("R$ %.2f", total_orders);
 
         return result;
     }

@@ -19,7 +19,7 @@ public class ClientReport extends Report{
 
     @Override
     public String generateHeader(){
-        return "Relatório de Clientes mais lucarativos no Período";
+        return "Most Lucrative Customer Report for the Period";
     }
 
     @Override
@@ -42,13 +42,13 @@ public class ClientReport extends Report{
         }
 
         for( User u : user_spendings.keySet()){
-            result += String.format("%-24sR$%5.2f", u.getLogin(), user_spendings.get(u));
+            result += String.format("%-24sR$ %.2f", u.getLogin(), user_spendings.get(u)) + "\n";
             bestClient = user_spendings.get(u) > bestValue ? u : bestClient;
             bestValue = user_spendings.get(bestClient);
         }
 
         result += "\n\n################################\n";
-        result += String.format("%-24sR$%5.2f", "Total no período", total_orders);
+        result += String.format("%-24sR$ %.2f", "Total in the period", total_orders);
         result += "\n";
 
         return result;
@@ -59,9 +59,9 @@ public class ClientReport extends Report{
 
         String result = "";
 
-        result += "O relatório conclui que o cliente mais rentável do período foi:\n";
+        result += "The report concludes that the most profitable \ncustomer of the period was:\n";
         
-        result += String.format("%-24sR$%5.2f", bestClient.getLogin(), user_spendings.get(bestClient));
+        result += String.format("%-24sR$ %.2f", bestClient.getLogin(), user_spendings.get(bestClient));
 
         return result;
     }

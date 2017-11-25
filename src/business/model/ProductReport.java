@@ -18,7 +18,7 @@ public class ProductReport extends Report{
 
     @Override
     public String generateHeader(){
-        return "Relatório de Procura por Produtos no Período";
+        return "Product Search Report for the Period";
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ProductReport extends Report{
         }
 
         result += "\n#################################\n";
-        result += String.format("%-26sR$%5.2f", "Total no período", total_orders);
+        result += String.format("%-26sR$%5.2f", "Total in the period", total_orders);
         result += "\n";
 
         return result;
@@ -72,12 +72,12 @@ public class ProductReport extends Report{
 
         String result = "";
 
-        result += "O relatório conclui que o produto mais rentável foi: ";
+        result += "The report concludes that the most profitable product was: ";
         result += money.getName();
-        result += "\nRendendo um total de: " + String.format("R$ %5.2f", max_money);
-        result += "\n\nE o produto mais procurado foi: ";
+        result += "\nRendering a total of: " + String.format("R$ %5.2f", max_money);
+        result += "\n\nAnd the most searched product was: ";
         result += count.getName();
-        result += "\nCom " + max_count + " unidades vendidas";
+        result += "\nWith "+ max_count +" units sold";
 
         return result;
     }
