@@ -1,6 +1,6 @@
 package business.model.memento;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Set;
 import business.model.Product;
 import java.io.Serializable;
@@ -14,13 +14,13 @@ public class Sale implements Serializable{
     public Sale() {
         this.id = "";
         this.discount = 0.0f;
-        this.products = new HashSet<>();
+        this.products = new TreeSet<>();
     }
 
     public Sale(String id, float discount) {
         this.id = id;
         this.discount = discount;
-        this.products = new HashSet<>();
+        this.products = new TreeSet<>();
     }
     
     public void addProduct( Product product ){

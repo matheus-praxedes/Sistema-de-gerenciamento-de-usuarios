@@ -4,7 +4,7 @@ import business.control.OrderControl;
 import util.ControlException;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class ClientReport extends Report{
 
@@ -25,7 +25,7 @@ public class ClientReport extends Report{
     @Override
     public String generateData() throws ControlException{
 
-        user_spendings = new HashMap<>();
+        user_spendings = new TreeMap<>();
         bestClient = new User();
         float bestValue = 0.0f;
 
