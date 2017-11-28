@@ -1,15 +1,11 @@
 // Implementação do padrão State
 package view;
 
-import util.ControlException;
-import view.ExitScreenState;
-import view.MainScreenState;
+public class ReportControlScreenState implements ScreenState {
 
-public class StartScreenState implements ScreenState{
+    private static ReportControlScreenState instance = new ReportControlScreenState();
 
-    private static StartScreenState instance = new StartScreenState();
-
-    public static StartScreenState getInstance(){
+    public static ReportControlScreenState getInstance(){
         return instance;
     }
     
@@ -17,11 +13,11 @@ public class StartScreenState implements ScreenState{
 
         System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
-                        " 1 - Login\n" +
-                        " 2 - Register user\n" +
+                        " 1 - Show orders report\n" +
+                        " 2 - Show products report\n" +
+                        " 3 - Show clients report\n" +
                         " ------------------------\n" +
-                        " 3 - User management\n" +
-                        " ------------------------\n" +
+                        " 4 - Go back\n" +
                         " 0 - Exit system");
     
         int choice = context.input.nextInt();
@@ -33,13 +29,16 @@ public class StartScreenState implements ScreenState{
                 context.current_state = ExitScreenState.getInstance();
                 break;
             case 1:
-                context.current_state = MainScreenState.getInstance();
+                context.current_state = OrderReportScreenState.getInstance();
                 break;
             case 2:
-                context.current_state = RegisterUserScreenState.getInstance();
+                context.current_state = ProductReportScreenState.getInstance();
                 break;
             case 3:
-                context.current_state = UserManagementScreenState.getInstance();
+                context.current_state = ClientReportScreenState.getInstance();
+                break;
+            case 4:
+                context.current_state = MainScreenState.getInstance();
                 break;
             default:         
                 context.current_state = this;

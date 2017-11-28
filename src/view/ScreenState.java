@@ -1,5 +1,4 @@
 // Implementação do padrão State
-
 package view;
 
 public interface ScreenState{

@@ -1,3 +1,4 @@
+// Implementação do padrão State
 package view;
 
 import business.control.Facade;
@@ -33,6 +34,9 @@ public class Screen {
     }
 
     public void showSystem(){
+        
+        System.out.println("Welcome!");
+        System.out.println("User registration system");
         
         while( current_state != final_state ){
             showScreen();

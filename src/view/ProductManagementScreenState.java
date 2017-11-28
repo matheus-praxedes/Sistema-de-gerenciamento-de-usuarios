@@ -2,14 +2,12 @@
 package view;
 
 import util.ControlException;
-import view.ExitScreenState;
-import view.MainScreenState;
 
-public class StartScreenState implements ScreenState{
+public class ProductManagementScreenState implements ScreenState {
+    
+    private static ProductManagementScreenState instance = new ProductManagementScreenState();
 
-    private static StartScreenState instance = new StartScreenState();
-
-    public static StartScreenState getInstance(){
+    public static ProductManagementScreenState getInstance(){
         return instance;
     }
     
@@ -17,11 +15,10 @@ public class StartScreenState implements ScreenState{
 
         System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
-                        " 1 - Login\n" +
-                        " 2 - Register user\n" +
+                        " 1 - Register product\n" +
+                        " 2 - Delete product\n" + 
                         " ------------------------\n" +
-                        " 3 - User management\n" +
-                        " ------------------------\n" +
+                        " 3 - Go back\n" +
                         " 0 - Exit system");
     
         int choice = context.input.nextInt();
@@ -33,13 +30,13 @@ public class StartScreenState implements ScreenState{
                 context.current_state = ExitScreenState.getInstance();
                 break;
             case 1:
-                context.current_state = MainScreenState.getInstance();
+                context.current_state = AddProductScreenState.getInstance();
                 break;
             case 2:
-                context.current_state = RegisterUserScreenState.getInstance();
+                context.current_state = DeleteProductScreenState.getInstance();
                 break;
             case 3:
-                context.current_state = UserManagementScreenState.getInstance();
+                context.current_state = MainScreenState.getInstance();
                 break;
             default:         
                 context.current_state = this;

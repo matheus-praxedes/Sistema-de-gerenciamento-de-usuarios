@@ -46,40 +46,38 @@ public class UserForm {
     
     public void mainMenu(){
         
-        System.out.println("\n\n#######################################\n");
         System.out.println("Welcome!");
-        System.out.println("User registration system");
+        System.out.println("User registration system\n");
         
         while(true){
        
-            System.out.println("\n\n#######################################\n");
-            System.out.println("Choose one of the options below: \n" +
+            System.out.println("\nChoose one of the options below: \n" +
                           " 1  - Login\n" +
                           " 2  - Logout\n" +
-                          " ------------------------\n" +
-                          " 10 - Register user\n" +
-                          " 11 - Delete user\n" + 
-                          " 12 - List user\n" +
-                          " 13 - List all users\n" +
-                          " ------------------------\n" +
-                          " 20 - Register product\n" +
-                          " 21 - Delete product\n" + 
-                          " 22 - List product\n" +
-                          " 23 - Show menu\n" +
-                          " ------------------------\n" +
-                          " 30 - Make order\n" +
-                          " ------------------------\n" +
-                          " 40 - Add sale\n" +
-                          " 41 - Change sale\n" +
-                          " 42 - Search for sale\n" +
-                          " 43 - Undo last sale action\n" +
-                          " 44 - Redo last sale action\n" +
-                          " ------------------------\n" +
-                          " 50 - Show orders report\n" +
-                          " 51 - Show products report\n" +
-                          " 52 - Show clients report\n" +
-                          " ------------------------\n" +
-                          " 0  - Exit system");
+                          " ------------------------\n" + //ok
+                          " 10 - Register user\n" + //???
+                          " 11 - Delete user\n" + //ok 
+                          " 12 - List user\n" + //ok
+                          " 13 - List all users\n" + //ok
+                          " ------------------------\n" + //ok
+                          " 20 - Register product\n" + //ok
+                          " 21 - Delete product\n" + //ok
+                          " 22 - List product\n" + //ok
+                          " 23 - Show menu\n" + //ok
+                          " ------------------------\n" + //ok
+                          " 30 - Make order\n" + //ok
+                          " ------------------------\n" +//ok
+                          " 40 - Add sale\n" + //ok
+                          " 41 - Change sale\n" + //ok
+                          " 42 - Search for sale\n" + //ok
+                          " 43 - Undo last sale action\n" + //ok
+                          " 44 - Redo last sale action\n" + //ok
+                          " ------------------------\n" +//ok
+                          " 50 - Show orders report\n" +//ok
+                          " 51 - Show products report\n" +//ok
+                          " 52 - Show clients report\n" +//ok
+                          " ------------------------\n" +//ok
+                          " 0  - Exit system");//ok
        
             int choice = input.nextInt();
             input.nextLine();
@@ -167,7 +165,6 @@ public class UserForm {
         try{
             facade.loginSystem(login, password);
             System.out.println("Successfully logged as " + login + "!");
-            System.out.println();
         }
         catch(UserException e){
             System.out.println( e.getMessage());
@@ -190,22 +187,18 @@ public class UserForm {
             System.out.print("Enter your phone number: ");
             String phone = input.next();
 
-            System.out.println();
-
             try{
                 facade.addUser(login, password, (email.equals("0") ? "" : email), (phone.equals("0") ? "" : phone));
-                System.out.println("User successfully registered!");
                 break;
             }
             catch(LoginException | PasswordException e){
 
                 System.out.println( e.getMessage());
                 System.out.println("Try again");
-                System.out.println();
                 
             } catch (ControlException ex) {
                 System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
-                // ex.printStackTrace(System.out);
+                ex.printStackTrace(System.out);
             }
         }
     }
@@ -336,6 +329,7 @@ public class UserForm {
             System.out.print("Enter product name or type '0' to exit: ");
             String name = input.nextLine();
 
+
             if(!name.equals("0")){ 
                
             }
@@ -348,15 +342,14 @@ public class UserForm {
             
             orders.add(name);      
         }
-
-        System.out.println();
         
         try{
             facade.newOrder(orders);      
-            System.out.print("Order made successfully!\n");
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nInvalid order. Try again.");
         }
+        
+        System.out.print("Order made successfully!\n");
         
     }
     
@@ -400,7 +393,7 @@ public class UserForm {
             facade_sales.service(cmd);      
             System.out.print("Sale registered successfully!\n");
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nInvalid sale. Try again.");
         }
     }
 
@@ -454,7 +447,7 @@ public class UserForm {
             facade_sales.service(cmd);      
             System.out.print("Sale modified successfully!\n");
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nInvalid sale. Try again.");
         }
     }
 
@@ -464,7 +457,7 @@ public class UserForm {
             facade_sales.undo();      
             System.out.print("Last actions was undo successfully!\n");
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nCan't retry action.");
         }
     }
 
@@ -474,7 +467,7 @@ public class UserForm {
             facade_sales.redo();      
             System.out.print("Last actions was undo successfully!\n");
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nCan't retry action.");
         }
     }
 
@@ -483,7 +476,7 @@ public class UserForm {
         try{
             System.out.println(facade.getOrderReport());
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nCan't generate report.");
         }
     }
 
@@ -492,7 +485,7 @@ public class UserForm {
         try{
             System.out.println(facade.getProductReport());
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nCan't generate report.");
         }
     }
 
@@ -501,7 +494,7 @@ public class UserForm {
         try{
             System.out.println(facade.getClientReport());
         }catch (ControlException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("\nCan't generate report.");
         }
     }
  }

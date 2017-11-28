@@ -1,6 +1,5 @@
+// Implementação do padrão State
 package view;
-
- // Implementação do padrão State
 
 public class ExitScreenState implements ScreenState{
 
