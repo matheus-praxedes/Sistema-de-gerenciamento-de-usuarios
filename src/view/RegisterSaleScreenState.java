@@ -6,6 +6,7 @@ import business.control.Command;
 import java.util.ArrayList;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 
 public class RegisterSaleScreenState implements ScreenState{
@@ -16,6 +17,7 @@ public class RegisterSaleScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
     
         
@@ -53,6 +55,16 @@ public class RegisterSaleScreenState implements ScreenState{
             System.out.print("Sale registered successfully!\n");
         }catch (ControlException ex) {
             System.out.println("\nInvalid sale. Try again.");
+        }
+
+        context.current_state = SalesManagementScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

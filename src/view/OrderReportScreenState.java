@@ -2,6 +2,7 @@
 package view;
 
 import util.ControlException;
+import java.io.IOException;
 
 public class OrderReportScreenState implements ScreenState{
  
@@ -17,6 +18,16 @@ public class OrderReportScreenState implements ScreenState{
             System.out.println(context.facade.getOrderReport());
         }catch (ControlException ex) {
             System.out.println("\nCan't generate report.");
+        }
+
+        context.current_state = ReportControlScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

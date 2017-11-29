@@ -6,6 +6,7 @@ import business.control.UpdateCommand;
 import java.util.ArrayList;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 public class SalesManagementScreenState implements ScreenState {
 
@@ -17,7 +18,6 @@ public class SalesManagementScreenState implements ScreenState {
     
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
                         " 1 - Add sale\n" +
                         " 2 - Change sale\n" +
@@ -64,6 +64,14 @@ public class SalesManagementScreenState implements ScreenState {
         }catch (ControlException ex) {
             System.out.println("\nCan't retry action.");
         }
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
+        }
     }
 
     private void redoSaleMenu(Screen context){
@@ -73,6 +81,14 @@ public class SalesManagementScreenState implements ScreenState {
             System.out.print("Last actions was undo successfully!\n");
         }catch (ControlException ex) {
             System.out.println("\nCan't retry action.");
+        }
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

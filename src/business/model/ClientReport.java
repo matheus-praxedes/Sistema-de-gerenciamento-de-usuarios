@@ -47,7 +47,7 @@ public class ClientReport extends Report{
             bestValue = user_spendings.get(bestClient);
         }
 
-        result += "\n\n################################\n";
+        result += "\n\n================================\n";
         result += String.format("%-24sR$ %.2f", "Total in the period", total_orders);
         result += "\n";
 

@@ -5,6 +5,7 @@ import business.control.Command;
 import business.control.SearchCommand;
 import business.model.memento.Sale;
 import util.ControlException;
+import java.io.IOException;
 
 
 public class SearchSaleScreenState implements ScreenState {
@@ -33,6 +34,14 @@ public class SearchSaleScreenState implements ScreenState {
         }
         catch(ControlException e){
             System.out.println( e.getMessage());
+        }
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

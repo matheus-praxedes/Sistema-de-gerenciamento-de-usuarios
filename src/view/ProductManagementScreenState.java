@@ -2,6 +2,7 @@
 package view;
 
 import util.ControlException;
+import java.io.IOException;
 
 public class ProductManagementScreenState implements ScreenState {
     
@@ -13,7 +14,6 @@ public class ProductManagementScreenState implements ScreenState {
     
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
                         " 1 - Register product\n" +
                         " 2 - Delete product\n" + 

@@ -2,6 +2,7 @@
 package view;
 
 import util.ControlException;
+import java.io.IOException;
 
 public class DeleteProductScreenState implements ScreenState{
     
@@ -11,6 +12,7 @@ public class DeleteProductScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
         
         System.out.print("Enter product name to delete: ");
@@ -22,6 +24,16 @@ public class DeleteProductScreenState implements ScreenState{
             System.out.print("Deleted product\n");
         }catch (ControlException ex) {
             System.out.println( ex.getMessage());
+        }
+
+        context.current_state = ProductManagementScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

@@ -1,6 +1,8 @@
 // Implementação do padrão State
 package view;
 
+import java.io.IOException;
+
 public class UserManagementScreenState implements ScreenState {
     
 private static UserManagementScreenState instance = new UserManagementScreenState();
@@ -11,19 +13,12 @@ private static UserManagementScreenState instance = new UserManagementScreenStat
     
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
-                          " 1 - Make order\n" +
-                          " 2 - List product\n" +
-                          " 3 - Show menu\n" +
-                          " 4 - Search for sale\n" +
+                          " 1 - Delete user\n" +  
+                          " 2 - List user\n" +
+                          " 3 - List all users\n" +
                           " ------------------------\n" +
-                          " 5 - Product management\n" +
-                          " 6 - Sale management\n" +
-                          " ------------------------\n" +
-                          " 7 - Report control\n" +
-                          " ------------------------\n" +
-                          " 8 - Go back\n" +
+                          " 4 - Go back\n" +
                           " 0 - Exit system");
     
         int choice = context.input.nextInt();
@@ -34,9 +29,21 @@ private static UserManagementScreenState instance = new UserManagementScreenStat
             case 0:
                 context.current_state = ExitScreenState.getInstance();
                 break;
-            
+            case 1:
+                context.current_state = DeleteUserScreenState.getInstance();
+                break;
+            case 2:
+                context.current_state = ListUserScreenState.getInstance();
+                break;
+            case 3:
+                context.current_state = ListAllUserScreenState.getInstance();
+                break;
+            case 4:
+                context.current_state = StartScreenState.getInstance();
+                break;
+
             default:         
-                context.current_state = (ScreenState) this;
+                context.current_state = this;
         }
     }
 }

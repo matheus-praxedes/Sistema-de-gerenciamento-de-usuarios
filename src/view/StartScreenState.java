@@ -4,6 +4,7 @@ package view;
 import util.ControlException;
 import view.ExitScreenState;
 import view.MainScreenState;
+import java.io.IOException;
 
 public class StartScreenState implements ScreenState{
 
@@ -13,9 +14,9 @@ public class StartScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
                         " 1 - Login\n" +
                         " 2 - Register user\n" +
@@ -33,7 +34,7 @@ public class StartScreenState implements ScreenState{
                 context.current_state = ExitScreenState.getInstance();
                 break;
             case 1:
-                context.current_state = MainScreenState.getInstance();
+                context.current_state = LoginScreenState.getInstance();
                 break;
             case 2:
                 context.current_state = RegisterUserScreenState.getInstance();

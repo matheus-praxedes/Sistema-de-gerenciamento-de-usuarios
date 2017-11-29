@@ -28,7 +28,7 @@ public class OrderReport extends Report{
             total_orders += order.getValue();
         }
 
-        result += "################################\n";
+        result += "================================\n";
         result += String.format("%-24sR$%5.2f", "Total in the period", total_orders);
         result += "\n";
 

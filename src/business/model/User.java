@@ -2,7 +2,7 @@ package business.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable, Comparable{
     
     private String login;
     private String password;
@@ -77,5 +77,17 @@ public class User implements Serializable{
         final User other = (User) obj;
 
         return other.login.equals(login);
+    }
+
+    public int compareTo(Object obj){
+        if (obj == null) {
+            return -1;
+        }
+        if (!User.class.isAssignableFrom(obj.getClass())) {
+            return -1;
+        }
+        final User other = (User) obj;
+
+        return other.login.compareToIgnoreCase(login);
     }
 }

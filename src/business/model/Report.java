@@ -11,7 +11,7 @@ public abstract class Report implements Serializable{
 
         String output = "";
 
-        output += "\n\n##################################################\n\n";
+        output += "\n\n==================================================\n\n";
 
         output += generateHeader();
         output += "\n----------------------------------------------------\n\n";
@@ -19,7 +19,7 @@ public abstract class Report implements Serializable{
         output += "\n----------------------------------------------------\n\n";
         output += generateEnd();
 
-        output += "\n\n##################################################\n\n";
+        output += "\n\n==================================================\n\n";
 
         content = output;
         

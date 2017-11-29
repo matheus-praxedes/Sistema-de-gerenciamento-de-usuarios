@@ -5,6 +5,7 @@ import business.control.UpdateCommand;
 import java.util.ArrayList;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 public class UpdateSaleScreenState implements ScreenState{
  
@@ -44,6 +45,16 @@ public class UpdateSaleScreenState implements ScreenState{
             System.out.print("Sale modified successfully!\n");
         }catch (ControlException ex) {
             System.out.println("\nInvalid sale. Try again.");
+        }
+
+        context.current_state = MainScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     
     }

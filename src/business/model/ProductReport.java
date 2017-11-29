@@ -43,7 +43,7 @@ public class ProductReport extends Report{
             total_orders += product_list.get(p) * p.getPrice();
         }
 
-        result += "\n#################################\n";
+        result += "\n=================================\n";
         result += String.format("%-26sR$%5.2f", "Total in the period", total_orders);
         result += "\n";
 

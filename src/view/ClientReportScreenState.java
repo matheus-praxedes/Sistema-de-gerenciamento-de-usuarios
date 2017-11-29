@@ -2,6 +2,7 @@
 package view;
 
 import util.ControlException;
+import java.io.IOException;
 
 public class ClientReportScreenState implements ScreenState{
  
@@ -12,11 +13,22 @@ public class ClientReportScreenState implements ScreenState{
     }
     
     public void showScreen(Screen context){
-        
+ 
         try{
             System.out.println(context.facade.getClientReport());
         }catch (ControlException ex) {
             System.out.println("\nCan't generate report.");
         }
+
+        context.current_state = ReportControlScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
+        }
+
     }
 }

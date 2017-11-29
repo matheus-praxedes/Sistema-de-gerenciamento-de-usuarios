@@ -1,6 +1,8 @@
 // Implementação do padrão State
 package view;
 
+import java.io.IOException;
+
 public class ReportControlScreenState implements ScreenState {
 
     private static ReportControlScreenState instance = new ReportControlScreenState();
@@ -11,7 +13,6 @@ public class ReportControlScreenState implements ScreenState {
     
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
         System.out.println("Choose one of the options below: \n" +
                         " 1 - Show orders report\n" +
                         " 2 - Show products report\n" +

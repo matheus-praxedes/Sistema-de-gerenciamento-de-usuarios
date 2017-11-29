@@ -35,11 +35,21 @@ public class Screen {
 
     public void showSystem(){
         
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
         System.out.println("Welcome!");
         System.out.println("User registration system");
         
         while( current_state != final_state ){
+            
+            System.out.println("=========================================");
+            System.out.println("|       User registration system        |");
+            System.out.println("=========================================\n");
+            System.out.println(facade.getUserLogged() == null ? "Not logged" : "Logged as " + facade.getUserLogged().getLogin());
+            System.out.println();
             showScreen();
+            System.out.print("\033[H\033[2J");  
+            System.out.flush();
         }
 
         showScreen();

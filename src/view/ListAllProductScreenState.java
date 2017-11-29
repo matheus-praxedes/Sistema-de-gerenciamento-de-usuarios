@@ -4,6 +4,7 @@ package view;
 import business.model.Product;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 public class ListAllProductScreenState  implements ScreenState{
     
@@ -13,6 +14,7 @@ public class ListAllProductScreenState  implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
     
         System.out.println();
@@ -27,6 +29,15 @@ public class ListAllProductScreenState  implements ScreenState{
         }
         catch(ControlException e){
             System.out.println(e.getMessage());
+        }
+
+        context.current_state = MainScreenState.getInstance();
+
+        try{
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

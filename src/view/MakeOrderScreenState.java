@@ -4,6 +4,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 public class MakeOrderScreenState implements ScreenState{
     
@@ -35,14 +36,25 @@ public class MakeOrderScreenState implements ScreenState{
             
             orders.add(name);      
         }
+
+        System.out.println();
         
         try{
             context.facade.newOrder(orders);      
+            System.out.println("Order made successfully!\n");
         }catch (ControlException ex) {
             System.out.println("\nInvalid order. Try again.");
         }
-        
-        System.out.print("Order made successfully!\n");
+
+        context.current_state = MainScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
+        }
         
     }
 }

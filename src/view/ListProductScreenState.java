@@ -4,6 +4,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 import util.ControlException;
+import java.io.IOException;
 
 
 public class ListProductScreenState implements ScreenState {
@@ -14,6 +15,7 @@ public class ListProductScreenState implements ScreenState {
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.print("Enter product name: ");
@@ -28,6 +30,16 @@ public class ListProductScreenState implements ScreenState {
         }
         catch(ControlException e){
             System.out.println( e.getMessage());
+        }
+
+        context.current_state = MainScreenState.getInstance();
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
     }
 }

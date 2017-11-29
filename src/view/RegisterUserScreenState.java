@@ -1,6 +1,11 @@
 // Implementação do padrão State
 package view;
 
+import util.ControlException;
+import util.LoginException;
+import util.PasswordException;
+import java.io.IOException;
+
 public class RegisterUserScreenState implements ScreenState {
     
 private static RegisterUserScreenState instance = new RegisterUserScreenState();
@@ -11,24 +16,41 @@ private static RegisterUserScreenState instance = new RegisterUserScreenState();
     
     public void showScreen(Screen context){
 
-        System.out.println("\n\n#######################################\n");
-        System.out.println("Choose one of the options below: \n" +
-                        " 1 - Register user\n" +
-                        " ------------------------\n" +
-                        " 2 - Go back\nn" +
-                        " 0 - Exit system");
-    
-        int choice = context.input.nextInt();
-        context.input.nextLine();
-        System.out.println();
+        System.out.print("Enter your login: ");
+        String login = context.input.next();
+
+        System.out.print("Enter your password: ");
+        String password = context.input.next();
         
-        switch(choice){
-            case 0:
-                context.current_state = ExitScreenState.getInstance();
-                break;
-           
-            default:         
-                context.current_state = this;
+        System.out.print("Enter your email: ");
+        String email = context.input.next();
+        
+        System.out.print("Enter your phone number: ");
+        String phone = context.input.next();
+
+        try{
+            context.facade.addUser(login, password, (email.equals("0") ? "" : email), (phone.equals("0") ? "" : phone));
+            System.out.println("User " + login + " registered successfully!");
+            context.current_state = StartScreenState.getInstance();
+        }
+        catch(LoginException | PasswordException e){
+
+            System.out.println( e.getMessage());
+            System.out.println("Try again");
+            context.current_state = StartScreenState.getInstance();
+            
+        } catch (ControlException ex) {
+            System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
+            ex.printStackTrace(System.out);
+            context.current_state = StartScreenState.getInstance();
+        }
+
+        try{
+            System.out.println("Press 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
         }
 
     }
