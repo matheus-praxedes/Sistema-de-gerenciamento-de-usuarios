@@ -16,7 +16,7 @@ import util.LoginException;
 import util.PasswordException;
 import util.UserException;
 
-public class Facade {
+public class Facade implements FacadeInterface{
  
     private ProductControl product;
     private UserControl    user;
@@ -26,10 +26,10 @@ public class Facade {
     public Facade() throws ControlException {
         
         try{
-            product = new ProductControl();
-            user    = new UserControl();
-            order   = new OrderControl(product);
-            access  = new AccessControl(user);
+            product = ProductControl.getInstance();
+            user    = UserControl.getInstance();
+            order   = OrderControl.getInstance();
+            access  = AccessControl.getInstance();
         }catch(ControlException e){
             System.out.println(e.getMessage());
         }
@@ -45,11 +45,11 @@ public class Facade {
         user.delete(login);
     }
     
-    public User listUser(String login) throws UserException{
+    public User listUser(String login) throws UserException, ControlException{
        return user.list(login);
     }
     
-    public List<User> listAllUsers() throws UserException{
+    public List<User> listAllUsers() throws UserException, ControlException{
         return user.listAll();
     }
 
@@ -74,9 +74,6 @@ public class Facade {
     // ---------------------------------------------------------------------------------------
     
     public void newOrder(List<String> orders) throws ControlException{
-
-        if(access.getUser() == null)
-            throw new ControlException("Shoud be logged to make order.");
     
         java.util.Date date = new java.util.Date();
         Calendar cal;

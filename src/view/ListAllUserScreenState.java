@@ -6,6 +6,7 @@ import business.model.User;
 import java.io.IOException;
 import java.util.List;
 import util.UserException;
+import util.ControlException;
 
 public class ListAllUserScreenState implements ScreenState {
     
@@ -25,7 +26,7 @@ private static ListAllUserScreenState instance = new ListAllUserScreenState();
             for(User u : all_users)
                 System.out.println(u);
         }
-        catch(UserException e){
+        catch(UserException | ControlException e ){
             System.out.println( e.getMessage());
         }
 

@@ -14,11 +14,21 @@ public class SaleControl {
     private Map<String, Sale> sales;
     private Persistence persistence;
     private ProductControl product_control;
+
+    private static SaleControl instance;
+
+    public static SaleControl getInstance() throws ControlException{
+
+        if(instance == null)
+            instance = new SaleControl();
+
+        return instance;
+    }
     
-    public SaleControl(ProductControl product_control) throws ControlException{
+    private SaleControl() throws ControlException{
        
         persistence = PersistenceFactory.getPersistence("fileSale") ;
-        this.product_control = product_control;
+        this.product_control = ProductControl.getInstance();
         try {
             sales = persistence.load();
         } catch (InfraException ex) {

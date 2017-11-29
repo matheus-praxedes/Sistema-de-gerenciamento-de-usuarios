@@ -1,6 +1,7 @@
 // Implementação do padrão State
 package view;
 
+import util.ControlException;
 import util.UserException;
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ private static ListUserScreenState instance = new ListUserScreenState();
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println(context.facade.listUser(login) + "\n");
         }
-        catch(UserException e){
+        catch(UserException | ControlException e){
             System.out.println( e.getMessage());
         }
 

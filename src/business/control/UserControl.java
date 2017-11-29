@@ -15,8 +15,18 @@ public class UserControl {
     
     private Map<String,User> users;
     private Persistence persistence;
+
+    private static UserControl instance;
+
+    public static UserControl getInstance() throws ControlException{
+
+        if(instance == null)
+            instance  = new UserControl();
+
+        return instance;
+    }
     
-    public UserControl() throws ControlException{
+    private UserControl() throws ControlException{
  
         persistence = PersistenceFactory.getPersistence("fileUser") ;
         try {

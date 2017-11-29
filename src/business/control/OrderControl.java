@@ -21,11 +21,21 @@ public class OrderControl{
     private ProductControl product_control;
     private NotificationSystem notification;
     private int id = 0;
+
+    private static OrderControl instance;
+
+    public static OrderControl getInstance() throws ControlException{
+
+        if(instance == null)
+            instance = new OrderControl();
+
+        return instance;
+    }
     
-    public OrderControl(ProductControl product_control) throws ControlException{
+    private OrderControl() throws ControlException{
  
         persistence = PersistenceFactory.getPersistence("fileOrder") ;
-        this.product_control = product_control;
+        this.product_control = ProductControl.getInstance();
         try {
             orders = persistence.load();
         } catch (InfraException ex) {

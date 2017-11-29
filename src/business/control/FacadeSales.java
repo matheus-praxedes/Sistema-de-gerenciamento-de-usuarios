@@ -11,8 +11,8 @@ public class FacadeSales {
 
     public FacadeSales() throws ControlException {
         zel = new Caretaker();
-        product = new ProductControl();
-        saleControl = new SaleControl(product);
+        product = ProductControl.getInstance();
+        saleControl = SaleControl.getInstance();
     }
     
     public Sale service(Command cmd) throws ControlException{

@@ -13,7 +13,17 @@ public class ProductControl {
     private Map<String,Product> products;
     private Persistence persistence;
     
-    public ProductControl() throws ControlException{
+    private static ProductControl instance;
+
+    public static ProductControl getInstance() throws ControlException{
+
+        if( instance == null )
+            instance = new ProductControl();
+
+        return instance;
+    }
+
+    private ProductControl() throws ControlException{
  
         persistence = PersistenceFactory.getPersistence("fileProduct") ;
         try {

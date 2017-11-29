@@ -18,13 +18,13 @@ public class ProductReportScreenState implements ScreenState {
         try{
             System.out.println(context.facade.getProductReport());
         }catch (ControlException ex) {
-            System.out.println("\nCan't generate report.");
+            System.out.println( ex.getMessage() );
         }
 
         context.current_state = ReportControlScreenState.getInstance();
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){
