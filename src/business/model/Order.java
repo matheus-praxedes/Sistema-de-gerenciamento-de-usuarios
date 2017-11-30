@@ -73,4 +73,8 @@ public class Order implements Serializable{
         
         return result;
     }
+
+    public OrderIterator createIterator(){
+        return new OrderIterator(products);
+    }
 }
