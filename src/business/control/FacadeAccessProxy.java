@@ -88,7 +88,7 @@ public class FacadeAccessProxy implements FacadeInterface{
         if(access.getAccessLevel() == 0)
             throw new ControlException("Shoud be logged to make order.");
 
-        newOrder(orders);
+        realFacade.newOrder(orders);
     }
     
     public void deleteOrder(String name) throws ControlException{

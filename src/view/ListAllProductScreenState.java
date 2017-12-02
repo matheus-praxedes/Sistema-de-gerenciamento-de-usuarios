@@ -34,6 +34,7 @@ public class ListAllProductScreenState  implements ScreenState{
         context.current_state = MainScreenState.getInstance();
 
         try{
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){

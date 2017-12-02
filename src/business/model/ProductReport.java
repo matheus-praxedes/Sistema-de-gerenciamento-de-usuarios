@@ -30,12 +30,16 @@ public class ProductReport extends Report{
         float total_orders = 0.0f;
 
         for( Order order : ordersList.listAll()){
-            for(Product p : order.getProductList().keySet()){
-                if(product_list.keySet().contains(p))
-                    product_list.put(p, product_list.get(p) + order.getProductList().get(p));
+
+            IteratorInterface it = order.createIterator();
+
+            for( it.first(); !it.isDone(); it.next() ){
+                if( product_list.keySet().contains( it.currentItemKey() ) )
+                    product_list.put( it.currentItemKey(), product_list.get(it.currentItemKey()) + it.currentItemValue());
                 else
-                    product_list.put(p, order.getProductList().get(p));
+                    product_list.put( it.currentItemKey(), it.currentItemValue());
             }
+
         }
 
         for( Product p : product_list.keySet()){
@@ -64,7 +68,7 @@ public class ProductReport extends Report{
                 count = p;
             }
 
-            if(product_list.get(p)*p.getPrice() > max_money*p.getPrice()){
+            if(product_list.get(p)*p.getPrice() > max_money){
                 max_money = product_list.get(p) * p.getPrice();
                 money = p;
             }

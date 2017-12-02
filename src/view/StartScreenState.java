@@ -21,8 +21,6 @@ public class StartScreenState implements ScreenState{
                         " 1 - Login\n" +
                         " 2 - Register user\n" +
                         " ------------------------\n" +
-                        " 3 - User management\n" +
-                        " ------------------------\n" +
                         " 0 - Exit system");
     
         int choice = context.input.nextInt();
@@ -38,9 +36,6 @@ public class StartScreenState implements ScreenState{
                 break;
             case 2:
                 context.current_state = RegisterUserScreenState.getInstance();
-                break;
-            case 3:
-                context.current_state = UserManagementScreenState.getInstance();
                 break;
             default:         
                 context.current_state = this;

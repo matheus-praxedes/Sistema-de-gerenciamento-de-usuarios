@@ -30,7 +30,7 @@ private static RegisterUserScreenState instance = new RegisterUserScreenState();
 
         try{
             context.facade.addUser(login, password, (email.equals("0") ? "" : email), (phone.equals("0") ? "" : phone));
-            System.out.println("User " + login + " registered successfully!");
+            System.out.println("User " + login + " registered successfully!\n");
             context.current_state = StartScreenState.getInstance();
         }
         catch(LoginException | PasswordException e){
@@ -46,7 +46,7 @@ private static RegisterUserScreenState instance = new RegisterUserScreenState();
         }
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){

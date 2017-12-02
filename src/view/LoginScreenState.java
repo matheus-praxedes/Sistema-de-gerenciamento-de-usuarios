@@ -35,5 +35,13 @@ public class LoginScreenState implements ScreenState{
             context.current_state = StartScreenState.getInstance();
         }
 
+        try{
+            System.out.println("\nPress 'ENTER' to continue");
+            System.in.read();
+        }
+        catch( IOException ex ){
+            ex.printStackTrace(System.out);
+        }
+
     }
 }

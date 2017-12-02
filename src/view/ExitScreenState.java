@@ -17,7 +17,7 @@ public class ExitScreenState implements ScreenState{
         System.out.println();
         
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){

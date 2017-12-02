@@ -39,7 +39,7 @@ private static UserManagementScreenState instance = new UserManagementScreenStat
                 context.current_state = ListAllUserScreenState.getInstance();
                 break;
             case 4:
-                context.current_state = StartScreenState.getInstance();
+                context.current_state = MainScreenState.getInstance();
                 break;
 
             default:         

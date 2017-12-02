@@ -29,7 +29,7 @@ public class DeleteProductScreenState implements ScreenState{
         context.current_state = ProductManagementScreenState.getInstance();
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){

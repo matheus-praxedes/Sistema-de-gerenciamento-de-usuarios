@@ -37,12 +37,15 @@ public class SearchSaleScreenState implements ScreenState {
         }
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){
             ex.printStackTrace(System.out);
         }
+
+        context.current_state = MainScreenState.getInstance();
+
     }
 }
 

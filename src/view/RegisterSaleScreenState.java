@@ -60,7 +60,7 @@ public class RegisterSaleScreenState implements ScreenState{
         context.current_state = SalesManagementScreenState.getInstance();
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){

@@ -17,12 +17,13 @@ public class MainScreenState implements  ScreenState{
                           " 3 - Show menu\n" +
                           " 4 - Search for sale\n" +
                           " ------------------------\n" +
-                          " 5 - Product management\n" +
-                          " 6 - Sale management\n" +
+                          " 5 - User management\n" +
+                          " 6 - Product management\n" +
+                          " 7 - Sale management\n" +
                           " ------------------------\n" +
-                          " 7 - Report control\n" +
+                          " 8 - Report control\n" +
                           " ------------------------\n" +
-                          " 8 - Logout\n" +
+                          " 9 - Logout\n" +
                           " 0 - Exit system");
     
         int choice = context.input.nextInt();
@@ -46,15 +47,18 @@ public class MainScreenState implements  ScreenState{
                 context.current_state = SearchSaleScreenState.getInstance();
                 break;
             case 5:
-                context.current_state = ProductManagementScreenState.getInstance();
+                context.current_state = UserManagementScreenState.getInstance();
                 break;
             case 6:
-                context.current_state = SalesManagementScreenState.getInstance();
+                context.current_state = ProductManagementScreenState.getInstance();
                 break;
             case 7:
-                context.current_state = ReportControlScreenState.getInstance();
+                context.current_state = SalesManagementScreenState.getInstance();
                 break;
             case 8:
+                context.current_state = ReportControlScreenState.getInstance();
+                break;
+            case 9:
                 context.facade.logoutSystem();
                 context.current_state = StartScreenState.getInstance();
                 break;

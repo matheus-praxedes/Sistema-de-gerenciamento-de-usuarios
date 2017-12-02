@@ -32,7 +32,7 @@ private static ListUserScreenState instance = new ListUserScreenState();
         context.current_state = UserManagementScreenState.getInstance();
 
         try{
-            System.out.println("Press 'ENTER' to continue");
+            System.out.println("\nPress 'ENTER' to continue");
             System.in.read();
         }
         catch( IOException ex ){
