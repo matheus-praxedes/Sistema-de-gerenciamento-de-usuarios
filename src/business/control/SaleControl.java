@@ -1,6 +1,5 @@
 package business.control;
 
-import business.model.Product;
 import business.model.memento.Sale;
 import infra.Persistence;
 import java.util.List;
@@ -117,5 +116,4 @@ public class SaleControl {
   
         return sales.size(); 
     } 
-    
- }
+}

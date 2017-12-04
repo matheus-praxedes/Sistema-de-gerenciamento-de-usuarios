@@ -1,6 +1,5 @@
 package business.control;
 
-import business.model.Order;
 import infra.FilePersistence;
 import infra.Persistence;
 
@@ -17,6 +16,6 @@ public class FilePersistenceOrderFactory extends PersistenceFactory{
 
     @Override
     public Persistence getPersistence(){
-        return new FilePersistence<Order>("order.bin");
+        return new FilePersistence<>("order.bin");
     }
 }

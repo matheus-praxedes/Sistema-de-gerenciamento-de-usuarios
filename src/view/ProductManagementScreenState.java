@@ -1,9 +1,6 @@
 // Implementação do padrão State
 package view;
 
-import util.ControlException;
-import java.io.IOException;
-
 public class ProductManagementScreenState implements ScreenState {
     
     private static ProductManagementScreenState instance = new ProductManagementScreenState();
@@ -12,6 +9,7 @@ public class ProductManagementScreenState implements ScreenState {
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.println("Choose one of the options below: \n" +

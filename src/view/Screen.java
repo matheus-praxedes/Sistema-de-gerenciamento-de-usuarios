@@ -1,13 +1,11 @@
 // Implementação do padrão State
 package view;
 
-import business.control.Facade;
 import business.control.FacadeInterface;
 import business.control.FacadeAccessProxy;
 import business.control.FacadeSales;
 import java.util.Locale;
 import java.util.Scanner;
-import view.ScreenState;
 import util.ControlException;
 
 public class Screen {

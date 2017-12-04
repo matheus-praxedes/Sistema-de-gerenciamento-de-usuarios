@@ -2,7 +2,6 @@ package business.model;
 
 import business.control.OrderControl;
 import util.ControlException;
-import java.util.List;
 
 public class OrderReport extends Report{
 

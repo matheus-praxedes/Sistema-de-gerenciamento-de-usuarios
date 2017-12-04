@@ -1,28 +1,30 @@
 package business.control;
 
 import business.model.Product;
-import business.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import util.ControlException;
 import util.PasswordException;
-import util.UserException;
 
 public class ProductControlTest {
    
-    ProductControl instance;
+    static ProductControl instance;
     
-    void init() throws ControlException{     
+    @BeforeClass
+    public static void init() throws ControlException{     
+        
+        instance = ProductControl.getInstance();
         instance.clear();
     }
     @Before
     public void setUp() throws ControlException {
 
-       instance = new ProductControl();
+      
     }
     @After
     public void tearDown() throws ControlException {
@@ -71,9 +73,9 @@ public class ProductControlTest {
         
         instance.addProduct("suco", 1.25f);
         instance.addProduct("agua", 1.35f );
-        list.add(new Product("suco", 1.25f));
         list.add(new Product("agua", 1.35f));
-        
+        list.add(new Product("suco", 1.25f));
+       
         try {
             assertEquals( list.toString(),instance.listAll().toString());
         } catch (ControlException ex) {

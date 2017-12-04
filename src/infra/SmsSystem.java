@@ -27,5 +27,4 @@ public class SmsSystem implements NotificationSystem {
 
         this.phone_number = number;
     }
-    
 }

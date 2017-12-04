@@ -11,7 +11,7 @@ public abstract class PersistenceFactory{
     public static Persistence getPersistence(String type){
 
         if(factoryList == null){
-            factoryList = new TreeMap<String, PersistenceFactory>();
+            factoryList = new TreeMap<>();
             factoryList.put("fileUser", FilePersistenceUserFactory.getInstance() );
             factoryList.put("fileProduct", FilePersistenceProductFactory.getInstance() );
             factoryList.put("fileOrder", FilePersistenceOrderFactory.getInstance() );
@@ -23,5 +23,4 @@ public abstract class PersistenceFactory{
     }
 
     public abstract Persistence getPersistence();
-
 }

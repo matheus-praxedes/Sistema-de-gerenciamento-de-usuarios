@@ -14,6 +14,7 @@ public class MakeOrderScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         List<String> orders = new ArrayList<>();
@@ -54,7 +55,6 @@ public class MakeOrderScreenState implements ScreenState{
         }
         catch( IOException ex ){
             ex.printStackTrace(System.out);
-        }
-        
+        }        
     }
 }

@@ -103,5 +103,4 @@ public class Sale implements Serializable{
 
         return new SaleMemento(new SaleState(id, discount, products));
     }
-    
 }

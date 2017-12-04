@@ -36,5 +36,4 @@ public class Caretaker{
         currentCommand = ++currentCommand >= commands.size() ? (commands.size()-1)  : currentCommand;
         return commands.get(currentCommand);
     }
-
 }

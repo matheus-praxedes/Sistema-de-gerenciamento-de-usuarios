@@ -8,12 +8,13 @@ import java.io.IOException;
 
 public class RegisterUserScreenState implements ScreenState {
     
-private static RegisterUserScreenState instance = new RegisterUserScreenState();
+    private static RegisterUserScreenState instance = new RegisterUserScreenState();
 
     public static RegisterUserScreenState getInstance(){
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.print("Enter your login: ");
@@ -40,8 +41,9 @@ private static RegisterUserScreenState instance = new RegisterUserScreenState();
             context.current_state = StartScreenState.getInstance();
             
         } catch (ControlException ex) {
-            System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
-            ex.printStackTrace(System.out);
+            //System.out.println("Internal error. Unable to save user data into the system. Search for an administrator for support");
+            //ex.printStackTrace(System.out);
+            System.out.println(ex.getMessage());
             context.current_state = StartScreenState.getInstance();
         }
 

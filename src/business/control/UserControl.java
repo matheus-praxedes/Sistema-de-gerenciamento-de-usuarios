@@ -82,6 +82,12 @@ public class UserControl {
             String[] e  = email.split("@");
                     
             if(e.length != 2 || e[0].isEmpty() || e[1].isEmpty()){
+                
+                try {
+                    delete(login);
+                } catch (UserException ex) {
+                    System.out.println(ex.getMessage());
+                }
                 throw new ControlException("Email error");
             }
             
@@ -94,6 +100,12 @@ public class UserControl {
             String[] pn = phone_number.split("-");
                     
             if(pn.length != 2 || pn[0].length() != 5 || pn[1].length() != 4){
+                
+                try {
+                    delete(login);
+                } catch (UserException ex) {
+                    System.out.println(ex.getMessage());
+                }
                 throw new ControlException("Ill-formed phone number. Ex: 90000-0000");
             }
             
@@ -178,5 +190,4 @@ public class UserControl {
         else
             return false;
     }
- 
-}
+ }

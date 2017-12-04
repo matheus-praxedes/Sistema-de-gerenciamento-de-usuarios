@@ -1,6 +1,5 @@
 package business.control;
 
-import business.model.memento.Sale;
 import infra.FilePersistence;
 import infra.Persistence;
 
@@ -16,6 +15,6 @@ public class FilePersistenceSaleFactory extends PersistenceFactory{
 
     @Override
     public Persistence getPersistence(){
-        return new FilePersistence<Sale>("sale.bin");
+        return new FilePersistence<>("sale.bin");
     }
 }

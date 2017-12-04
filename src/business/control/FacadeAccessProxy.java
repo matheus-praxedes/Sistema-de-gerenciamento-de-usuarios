@@ -1,21 +1,13 @@
 package business.control;
 
-import business.model.Date;
 import business.model.Order;
-import business.model.Report;
-import business.model.OrderReport;
-import business.model.ProductReport;
-import business.model.ClientReport;
 import business.model.Product;
 import business.model.User;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import java.util.Calendar;
 import java.util.List;
 import util.ControlException;
 import util.LoginException;
 import util.PasswordException;
 import util.UserException;
-import business.control.AccessControl;
 
 public class FacadeAccessProxy implements FacadeInterface{
 
@@ -27,10 +19,12 @@ public class FacadeAccessProxy implements FacadeInterface{
         access = AccessControl.getInstance();
     }
      
+    @Override
     public void addUser(String login, String password, String email, String phone) throws LoginException, PasswordException, ControlException{
         realFacade.addUser(login, password, email, phone);
     }
     
+    @Override
     public void deleteUser(String login) throws UserException, ControlException{
         if( access.getAccessLevel() > 1 )
             realFacade.deleteUser(login);
@@ -39,6 +33,7 @@ public class FacadeAccessProxy implements FacadeInterface{
         }
     }
     
+    @Override
     public User listUser(String login) throws UserException, ControlException{
         if( access.getAccessLevel() > 1 )
             return realFacade.listUser(login);
@@ -47,6 +42,7 @@ public class FacadeAccessProxy implements FacadeInterface{
         }
     }
     
+    @Override
     public List<User> listAllUsers() throws UserException, ControlException{
         if( access.getAccessLevel() > 1 )
             return realFacade.listAllUsers();
@@ -57,6 +53,7 @@ public class FacadeAccessProxy implements FacadeInterface{
 
     // --------------------------------------------------------------------------------------
     
+    @Override
     public void addProduct(String name, float price) throws ControlException{
         if( access.getAccessLevel() > 1 )
             realFacade.addProduct(name, price);
@@ -65,6 +62,7 @@ public class FacadeAccessProxy implements FacadeInterface{
         }
     }
     
+    @Override
     public void deleteProduct(String name) throws ControlException{
         if( access.getAccessLevel() > 1 )
             realFacade.deleteProduct(name);
@@ -73,16 +71,19 @@ public class FacadeAccessProxy implements FacadeInterface{
         }
     }
     
+    @Override
     public Product listProduct(String name) throws ControlException{
         return realFacade.listProduct(name);
     }
     
+    @Override
     public List<Product> listAllProducts() throws ControlException{
         return realFacade.listAllProducts();
     }
 
     // ---------------------------------------------------------------------------------------
     
+    @Override
     public void newOrder(List<String> orders) throws ControlException{
         
         if(access.getAccessLevel() == 0)
@@ -91,34 +92,41 @@ public class FacadeAccessProxy implements FacadeInterface{
         realFacade.newOrder(orders);
     }
     
+    @Override
     public void deleteOrder(String name) throws ControlException{
         realFacade.deleteOrder(name);
     }
 
+    @Override
     public Order listOrder(String name) throws ControlException{
         return realFacade.listOrder(name);
     }
     
+    @Override
     public List<Order> listAllOrders() throws ControlException{
         return realFacade.listAllOrders();
     }
 
     // ---------------------------------------------------------------------------------
 
+    @Override
     public void loginSystem(String login, String password) throws UserException{
         realFacade.loginSystem(login, password);
     }
     
+    @Override
     public void logoutSystem(){
         realFacade.logoutSystem();
     }
     
+    @Override
     public User getUserLogged(){
         return realFacade.getUserLogged();
     }
 
     // ----------------------------------------------------------------------------------
 
+    @Override
     public String getOrderReport() throws ControlException{
         if( access.getAccessLevel() > 2 )
             return realFacade.getOrderReport();
@@ -127,6 +135,7 @@ public class FacadeAccessProxy implements FacadeInterface{
         }
     }
 
+    @Override
     public String getClientReport() throws ControlException{
 
         if( access.getAccessLevel() > 2 )
@@ -137,6 +146,7 @@ public class FacadeAccessProxy implements FacadeInterface{
 
     }
 
+    @Override
     public String getProductReport() throws ControlException{
 
         if( access.getAccessLevel() > 2 )

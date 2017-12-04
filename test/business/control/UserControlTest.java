@@ -7,21 +7,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import util.ControlException;
 import util.PasswordException;
 import util.UserException;
 
 public class UserControlTest {
    
-    UserControl instance;
+    static UserControl instance;
     
-    void init() throws ControlException{     
+    @BeforeClass
+    public static void init() throws ControlException{     
+       
+        instance = UserControl.getInstance();
         instance.clear();
     }
     @Before
     public void setUp() throws ControlException {
 
-       instance = new UserControl();
+       
     }
     @After
     public void tearDown() throws ControlException {
@@ -116,7 +120,7 @@ public class UserControlTest {
         password = "12345679";
         login    = "miguel";
         phone    = "90000-0000";
-        
+           
         email = "mx@gmail.com";
         try {
             instance.addUser(login, password, email, phone);
@@ -129,6 +133,7 @@ public class UserControlTest {
             fail("Test fail.Should not throws control exception");
         }        
         
+        login = "arnaldo";
         email = "@mxgmail.com";
         try {
             instance.addUser(login, password, email, phone);
@@ -136,6 +141,7 @@ public class UserControlTest {
         } catch (PasswordException ex) {
             fail("Test fail. Should not throws password exception");
         } catch (util.LoginException ex) {
+            System.out.println(ex.getMessage());
             fail("Test fail.Should not throws login exception");
         } catch (ControlException ex) {
             assertTrue(true);
@@ -152,6 +158,7 @@ public class UserControlTest {
         } catch (ControlException ex) {
             assertTrue(true);
         }        
+        
         
         email = "mx@gmail.com";
         
@@ -246,7 +253,6 @@ public class UserControlTest {
             assertEquals(0,instance.countUsers());
         } catch (UserException ex) {
             fail("List is not empty");
-        }
-        
+        }        
     }
 }

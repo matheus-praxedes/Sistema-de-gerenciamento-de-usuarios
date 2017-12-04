@@ -7,12 +7,13 @@ import java.io.IOException;
 
 public class ListUserScreenState implements ScreenState {
     
-private static ListUserScreenState instance = new ListUserScreenState();
+    private static ListUserScreenState instance = new ListUserScreenState();
 
     public static ListUserScreenState getInstance(){
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.print("Enter login to display: ");

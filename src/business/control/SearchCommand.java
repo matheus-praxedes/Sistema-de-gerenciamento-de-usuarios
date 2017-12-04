@@ -13,13 +13,14 @@ public class SearchCommand implements Command{
         this.saleName = saleName;
     }
 
+    @Override
     public Sale execute() throws ControlException{
         Sale sale = sc.list(saleName);
         return sale;
     }
 
+    @Override
     public void unexecute(){
         // do nothing
     }
-
 }

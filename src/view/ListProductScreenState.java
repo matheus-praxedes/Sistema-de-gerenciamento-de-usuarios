@@ -1,8 +1,6 @@
 // Implementação do padrão State
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
 import util.ControlException;
 import java.io.IOException;
 

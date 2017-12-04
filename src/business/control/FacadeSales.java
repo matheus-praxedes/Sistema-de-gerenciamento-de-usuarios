@@ -31,5 +31,4 @@ public class FacadeSales {
     public SaleControl getSaleControl(){
         return saleControl;
     }
-
 }

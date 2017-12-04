@@ -1,16 +1,15 @@
 // Implementação do padrão State
 package view;
 
-import java.io.IOException;
-
 public class UserManagementScreenState implements ScreenState {
     
-private static UserManagementScreenState instance = new UserManagementScreenState();
+    private static UserManagementScreenState instance = new UserManagementScreenState();
 
     public static UserManagementScreenState getInstance(){
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.println("Choose one of the options below: \n" +

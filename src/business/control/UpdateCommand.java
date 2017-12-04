@@ -23,10 +23,11 @@ public class UpdateCommand implements Command{
         this.productNames = productNames;
     }
 
+    @Override
     public Sale execute() throws ControlException{
         mem = sc.list(id).createMemento();
 
-        List<String> new_products = new ArrayList<>();;
+        List<String> new_products = new ArrayList<>();
         for( Product p : sc.list(id).getProducts() )
             new_products.add(p.getName());
 
@@ -38,6 +39,7 @@ public class UpdateCommand implements Command{
         return sc.list(id);
     }
 
+    @Override
     public void unexecute() throws ControlException{
         Sale prev = new Sale();
         prev.setMemento(mem);
@@ -48,5 +50,4 @@ public class UpdateCommand implements Command{
 
         sc.addSale(prev.getId(), prev.getDiscount(), product_name_list) ;
     }
-
 }

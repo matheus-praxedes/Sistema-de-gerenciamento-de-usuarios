@@ -11,18 +11,22 @@ public class OrderIterator implements IteratorInterface{
         this.products = products;
     }
 
+    @Override
     public void first() {
         counter = 0;
     }
  
+    @Override
     public void next() {
         counter++;
     }
  
+    @Override
     public boolean isDone() {
         return counter == products.size();
     }
  
+    @Override
     public Product currentItemKey() {
         if (isDone()) {
             counter = products.size() - 1;
@@ -38,6 +42,7 @@ public class OrderIterator implements IteratorInterface{
         return null;
     }
 
+    @Override
     public Integer currentItemValue() {
         if (isDone()) {
             counter = products.size() - 1;
@@ -52,5 +57,4 @@ public class OrderIterator implements IteratorInterface{
 
         return null;
     }
-
 }

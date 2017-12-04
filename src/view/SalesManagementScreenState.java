@@ -1,10 +1,6 @@
 // Implementação do padrão State
 package view;
 
-import business.control.Command;
-import business.control.UpdateCommand;
-import java.util.ArrayList;
-import java.util.List;
 import util.ControlException;
 import java.io.IOException;
 
@@ -16,6 +12,7 @@ public class SalesManagementScreenState implements ScreenState {
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.println("Choose one of the options below: \n" +

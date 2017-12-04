@@ -15,6 +15,7 @@ public class UpdateSaleScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
     
        List<String> sale_products = new ArrayList<>();

@@ -1,11 +1,6 @@
 // Implementação do padrão State
 package view;
 
-import util.ControlException;
-import view.ExitScreenState;
-import view.MainScreenState;
-import java.io.IOException;
-
 public class StartScreenState implements ScreenState{
 
     private static StartScreenState instance = new StartScreenState();

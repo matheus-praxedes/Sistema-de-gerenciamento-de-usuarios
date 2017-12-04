@@ -11,6 +11,7 @@ public class ExitScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.println("Thank you for using the system!");

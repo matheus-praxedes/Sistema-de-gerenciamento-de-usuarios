@@ -2,6 +2,7 @@ package business.model;
 
 import java.io.Serializable;
 
+@SuppressWarnings("EqualsAndHashcode")
 public class Product implements Serializable, Comparable{
 
     private String name;

@@ -2,8 +2,6 @@
 package view;
 
 import util.UserException;
-import view.ExitScreenState;
-import view.StartScreenState;
 import java.io.IOException;
 
 public class LoginScreenState implements ScreenState{

@@ -13,7 +13,7 @@ public class Order implements Serializable{
     public Order(User user, Date date){
         this.user = user;
         this.date = date;
-        products = new TreeMap<Product, Integer>();
+        products = new TreeMap<>();
     }
 
     public Order() {

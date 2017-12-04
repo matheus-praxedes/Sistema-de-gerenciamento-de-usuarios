@@ -1,6 +1,5 @@
 package infra;
 
-import business.model.User;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +20,7 @@ public class FilePersistence <T> implements Persistence <T>{
         
         fileName = file;
     }
+    @Override
     public void save(Map<String,T> objects) throws InfraException{
         
         File file = new File(fileName);
@@ -35,9 +35,10 @@ public class FilePersistence <T> implements Persistence <T>{
             throw new InfraException("IO problem");
         } 
     }
+    @Override
     public Map<String,T> load() throws InfraException{
     
-        Map<String,T> objects = new TreeMap<String,T>();
+        Map<String,T> objects = new TreeMap<>();
         File file = new File(fileName);
         ObjectInputStream input = null;
         InputStream in = null;

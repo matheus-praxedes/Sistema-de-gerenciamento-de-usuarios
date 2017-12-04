@@ -16,6 +16,7 @@ public class SearchSaleScreenState implements ScreenState {
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         Sale sale;

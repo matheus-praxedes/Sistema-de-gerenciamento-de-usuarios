@@ -167,7 +167,5 @@ public class OrderControl{
         } catch (InfraException ex) {
             throw new ControlException("Can not notify user by email");
         }
-
     }
-     
 }

@@ -104,9 +104,6 @@ public class ProductControl {
     }
 
     public boolean containsProduct(String name){
-        if(products.get(name) != null)
-            return true;
-        else
-            return false;
+        return products.get(name) != null;
     }
  }

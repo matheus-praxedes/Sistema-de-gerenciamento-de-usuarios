@@ -7,12 +7,13 @@ import java.io.IOException;
 
 public class DeleteUserScreenState implements ScreenState {
     
-private static DeleteUserScreenState instance = new DeleteUserScreenState();
+    private static DeleteUserScreenState instance = new DeleteUserScreenState();
 
     public static DeleteUserScreenState getInstance(){
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
 
         System.out.print("Enter login to delete: ");

@@ -12,7 +12,7 @@ public class SaleState{
 
     public SaleState(String id, float discount, Set<Product> prod_name){
 
-        this.id = new String(id);
+        this.id = id;
         this.discount = discount;
         this.products = new TreeSet<>();
         this.products.addAll(prod_name);

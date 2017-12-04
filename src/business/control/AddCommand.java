@@ -18,13 +18,14 @@ public class AddCommand implements Command{
         this.productNames = productNames;
     }
 
+    @Override
     public Sale execute() throws ControlException{
         sc.addSale(id , discount, productNames);
         return sc.list(id);
     }
 
+    @Override
     public void unexecute() throws ControlException{
         sc.delete(id);
     }
-
 }

@@ -1,6 +1,5 @@
 package business.control;
 
-import business.model.User;
 import infra.FilePersistence;
 import infra.Persistence;
 
@@ -16,7 +15,6 @@ public class FilePersistenceUserFactory extends PersistenceFactory{
 
     @Override
     public Persistence getPersistence(){
-        return new FilePersistence<User>("user.bin");
+        return new FilePersistence<>("user.bin");
     }
-
 }

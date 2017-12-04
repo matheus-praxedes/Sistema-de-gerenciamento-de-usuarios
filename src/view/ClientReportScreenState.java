@@ -12,6 +12,7 @@ public class ClientReportScreenState implements ScreenState{
         return instance;
     }
     
+    @Override
     public void showScreen(Screen context){
  
         try{

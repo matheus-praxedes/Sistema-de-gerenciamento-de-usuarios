@@ -79,6 +79,7 @@ public class User implements Serializable, Comparable{
         return other.login.equals(login);
     }
 
+    @Override
     public int compareTo(Object obj){
         if (obj == null) {
             return -1;

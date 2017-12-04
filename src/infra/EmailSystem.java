@@ -1,4 +1,3 @@
-
 package infra;
 
 import util.InfraException;
@@ -28,6 +27,5 @@ public class EmailSystem implements NotificationSystem {
 
         this.adress = number;
     }
-    
 }
 
