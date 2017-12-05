@@ -1,5 +1,7 @@
 package business.model;
 
+// Padrão Iterator
+
 import java.util.Map;
 
 public class OrderIterator implements IteratorInterface{

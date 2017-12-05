@@ -1,3 +1,4 @@
+// Padrão Template Method
 package business.model;
 
 import util.ControlException;

@@ -1,4 +1,4 @@
-// Implementação do padrão State
+// Padrão State
 package view;
 
 public class MainScreenState implements  ScreenState{

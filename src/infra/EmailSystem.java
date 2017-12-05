@@ -1,8 +1,7 @@
+// Padrão Adapter
 package infra;
 
 import util.InfraException;
-
-/*Esta classe implementa o padrão Adapter*/
 
 public class EmailSystem implements NotificationSystem {
 

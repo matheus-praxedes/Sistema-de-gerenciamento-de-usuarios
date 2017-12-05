@@ -1,3 +1,4 @@
+// Padrão Command/Memento
 package business.control;
 
 import java.util.List;

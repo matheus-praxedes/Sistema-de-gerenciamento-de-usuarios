@@ -1,3 +1,4 @@
+// Padrão Command
 package business.control;
 
 import business.model.memento.Sale;

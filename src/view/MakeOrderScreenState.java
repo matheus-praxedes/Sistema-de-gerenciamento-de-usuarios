@@ -1,4 +1,4 @@
-// Implementação do padrão State
+// Padrão State
 package view;
 
 import java.util.ArrayList;

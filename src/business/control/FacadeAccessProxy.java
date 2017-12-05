@@ -1,3 +1,4 @@
+// Padrão Proxy
 package business.control;
 
 import business.model.Order;

@@ -1,3 +1,4 @@
+// Padrão Memento
 package business.model.memento;
 
 import java.util.Set;

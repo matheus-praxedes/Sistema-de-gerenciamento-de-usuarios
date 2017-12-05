@@ -1,3 +1,4 @@
+// Padrão Iterator
 package business.model;
 
 public interface IteratorInterface{

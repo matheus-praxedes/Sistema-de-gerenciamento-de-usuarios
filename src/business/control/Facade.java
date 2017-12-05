@@ -1,3 +1,4 @@
+// Padrão Façade/Proxy
 package business.control;
 
 import business.model.Date;

@@ -1,3 +1,4 @@
+// Padrão Façade
 package business.control;
 
 import util.ControlException;

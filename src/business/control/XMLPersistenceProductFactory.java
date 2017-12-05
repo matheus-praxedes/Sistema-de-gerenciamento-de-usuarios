@@ -1,3 +1,4 @@
+// Padrão Factory Method
 package business.control;
 
 import infra.XMLPersistence;

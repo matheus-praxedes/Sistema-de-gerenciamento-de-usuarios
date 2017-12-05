@@ -1,8 +1,8 @@
+// Padrão Factory Method
 package business.control;
 
 import infra.XMLPersistence;
 import infra.Persistence;
-
 
 public class XMLPersistenceOrderFactory extends PersistenceFactory{
 

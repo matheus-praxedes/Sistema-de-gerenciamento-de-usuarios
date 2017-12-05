@@ -1,3 +1,4 @@
+// Padrão Iterator
 package business.model;
 
 import java.util.Map;
