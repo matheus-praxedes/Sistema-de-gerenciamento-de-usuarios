@@ -16,6 +16,10 @@ public abstract class PersistenceFactory{
             factoryList.put("fileProduct", FilePersistenceProductFactory.getInstance() );
             factoryList.put("fileOrder", FilePersistenceOrderFactory.getInstance() );
             factoryList.put("fileSale", FilePersistenceSaleFactory.getInstance() );
+            factoryList.put("xmlUser", XMLPersistenceUserFactory.getInstance() );
+            factoryList.put("xmlProduct", XMLPersistenceProductFactory.getInstance() );
+            factoryList.put("xmlOrder", XMLPersistenceOrderFactory.getInstance() );
+            factoryList.put("xmlSale", XMLPersistenceSaleFactory.getInstance() );
         }
 
         PersistenceFactory factory = factoryList.get(type);
