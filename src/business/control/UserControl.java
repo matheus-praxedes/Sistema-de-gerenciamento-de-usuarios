@@ -28,7 +28,7 @@ public class UserControl {
     
     private UserControl() throws ControlException{
  
-        persistence = PersistenceFactory.getPersistence("xmlUser") ;
+        persistence = PersistenceFactory.getPersistence("fileUser") ;
         try {
             users = persistence.load();
         } catch (InfraException ex) {
